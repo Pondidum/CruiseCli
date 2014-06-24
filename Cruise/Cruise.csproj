@@ -48,6 +48,8 @@
     <Compile Include="Commands\Status\StatusInputModel.cs" />
     <Compile Include="CruiseCommandExecutor.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="ProjectName.cs" />
+    <Compile Include="ProjectNameParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
