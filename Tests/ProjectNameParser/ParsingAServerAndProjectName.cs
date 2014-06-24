@@ -1,7 +1,7 @@
 using Should;
 using Xunit;
 
-namespace Tests
+namespace Tests.ProjectNameParser
 {
 	public class ParsingAServerAndProjectName : ProjectNameParserTestBase
 	{

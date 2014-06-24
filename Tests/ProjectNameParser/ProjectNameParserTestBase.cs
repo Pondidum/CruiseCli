@@ -1,6 +1,6 @@
 ﻿using Cruise;
 
-namespace Tests
+namespace Tests.ProjectNameParser
 {
 	public class ProjectNameParserTestBase
 	{
@@ -8,7 +8,7 @@ namespace Tests
 
 		protected void Execute(string name)
 		{
-			var parser = new ProjectNameParser();
+			var parser = new Cruise.ProjectNameParser();
 
 			Result = parser.Parse(name);
 		}
