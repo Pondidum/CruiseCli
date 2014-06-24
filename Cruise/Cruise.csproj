@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Status\StatusCommand.cs" />
+    <Compile Include="Commands\Status\StatusInputModel.cs" />
     <Compile Include="CruiseCommandExecutor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
