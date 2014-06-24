@@ -4,7 +4,18 @@
 	{
 		public ProjectName Parse(string input)
 		{
-			return new ProjectName("", "");
+			var server = string.Empty;
+			var project = input;
+
+			if (input.Contains("/"))
+			{
+				var index = input.IndexOf('/');
+
+				server = input.Substring(0, index);
+				project = input.Substring(index + 1);
+			}
+
+			return new ProjectName(server, project);
 		}
 		
 	}
