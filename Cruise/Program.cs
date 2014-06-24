@@ -9,11 +9,7 @@ namespace Cruise
 		{
 			try
 			{
-				var factory = new CommandFactory();
-				factory.RegisterCommands(typeof(IFubuCommand).Assembly);
-				factory.RegisterCommands(typeof(Program).Assembly);
-
-				var executor = new CommandExecutor(factory);
+				var executor = new CruiseCommandExecutor();
 				var success = executor.Execute(args);
 
 				return success ? 0 : 1;
@@ -33,5 +29,6 @@ namespace Cruise
 				return 1;
 			}
 		}
+
 	}
 }
