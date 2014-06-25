@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\CommandTestBase.cs" />
+    <Compile Include="Commands\ServerCommandTests.cs" />
     <Compile Include="Commands\StatusCommandTests.cs" />
     <Compile Include="ProjectNameParser\ParsingABlankName.cs" />
     <Compile Include="ProjectNameParser\ParsingANameBeginingWithSlash.cs" />
