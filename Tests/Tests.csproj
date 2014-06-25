@@ -51,6 +51,7 @@
     <Compile Include="Commands\CommandTestBase.cs" />
     <Compile Include="Commands\StatusCommandTests.cs" />
     <Compile Include="ProjectNameParser\ParsingABlankName.cs" />
+    <Compile Include="ProjectNameParser\ParsingANameBeginingWithSlash.cs" />
     <Compile Include="ProjectNameParser\ParsingANameEndingWithSlash.cs" />
     <Compile Include="ProjectNameParser\ParsingAProjectName.cs" />
     <Compile Include="ProjectNameParser\ParsingAServerAndProjectName.cs" />
