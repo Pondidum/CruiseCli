@@ -3,27 +3,13 @@ using Xunit;
 
 namespace Tests.Commands
 {
-	public class StatusWithNoArguments: CommandTestBase
+	public class StatusCommandUsageTests : CommandUsageTestBase
 	{
-		public StatusWithNoArguments()
+		public StatusCommandUsageTests()
 		{
-			Execute("status");
-		}
-	}
-
-	public class StatusWithProjectSpecified : CommandTestBase
-	{
-		public StatusWithProjectSpecified()
-		{
-			Execute("status", "development");
-		}
-	}
-
-	public class StatusWithServerAndProjectSpecified : CommandTestBase
-	{
-		public StatusWithServerAndProjectSpecified()
-		{
-			Execute("status", "primary/development");
+			Add("status");
+			Add("status", "development");
+			Add("status", "primary/development");
 		}
 	}
 }
