@@ -1,6 +1,4 @@
-﻿using Cruise;
-using FubuCore.CommandLine;
-using Xunit;
+﻿using Xunit;
 
 namespace Tests
 {
@@ -9,9 +7,6 @@ namespace Tests
 		[Fact]
 		public void When_parsing_an_input()
 		{
-			var executor = new CruiseCommandExecutor();
-
-			var result = executor.Execute(new[] { "status", "development" });
 		}
 	}
 }
