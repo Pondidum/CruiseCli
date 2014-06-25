@@ -4,12 +4,12 @@ using Xunit;
 
 namespace Tests.Commands
 {
-	public class CommandTestBase
+	public abstract class CommandTestBase
 	{
 		private readonly CruiseCommandExecutor _executor;
 		public bool Result { get; private set; }
 
-		public CommandTestBase()
+		protected CommandTestBase()
 		{
 			_executor = new CruiseCommandExecutor();
 		}
