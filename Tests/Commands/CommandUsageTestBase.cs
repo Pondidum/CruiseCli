@@ -7,24 +7,39 @@ namespace Tests.Commands
 {
 	public abstract class CommandUsageTestBase
 	{
-		private readonly List<string[]> _usages;
+		private readonly List<string[]> _succeedingInput;
+		private readonly List<string[]> _failingInput;
 
 		protected CommandUsageTestBase()
 		{
-			_usages = new List<string[]>();
+			_succeedingInput = new List<string[]>();
+			_failingInput = new List<string[]>();
 		}
 
 		protected void Succeeds(params string[] input)
 		{
-			_usages.Add(input);
+			_succeedingInput.Add(input);
+		}
+
+		protected void Fails(params string[] input)
+		{
+			_failingInput.Add(input);
 		}
 
 		[Fact]
-		public void All_usages_run_successfully()
+		public void All_succeeding_usages_run_successfully()
 		{
 			var executor = new CruiseCommandExecutor();
 
-			_usages.ForEach(command => executor.Execute(command).ShouldBeTrue());
+			_succeedingInput.ForEach(command => executor.Execute(command).ShouldBeTrue(command.Join(" ")));
+		}
+
+		[Fact]
+		public void All_failing_usages_fail()
+		{
+			var executor = new CruiseCommandExecutor();
+
+			_failingInput.ForEach(command => executor.Execute(command).ShouldBeFalse(command.Join(" ")));
 		}
 	}
 }
