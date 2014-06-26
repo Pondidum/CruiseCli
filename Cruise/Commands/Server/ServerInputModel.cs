@@ -2,7 +2,8 @@
 {
 	public class ServerInputModel
 	{
-		public Commands Command { get; set; }
+		public bool AddFlag { get; set; }
+		public bool RemoveFlag { get; set; }
 
 		public string Name { get; set; }
 		public string Url { get; set; }
