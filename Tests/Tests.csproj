@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Commands\CommandTestBase.cs" />
     <Compile Include="Commands\CommandUsageTestBase.cs" />
+    <Compile Include="Commands\RunCommandTests.cs" />
     <Compile Include="Commands\ServerCommandTests.cs" />
     <Compile Include="Commands\StatusCommandTests.cs" />
     <Compile Include="ProjectNameParser\ParsingABlankName.cs" />
