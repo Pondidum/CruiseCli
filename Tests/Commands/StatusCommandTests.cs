@@ -7,9 +7,9 @@ namespace Tests.Commands
 	{
 		public StatusCommandUsageTests()
 		{
-			Add("status");
-			Add("status", "development");
-			Add("status", "primary/development");
+			Succeeds("status");
+			Succeeds("status", "development");
+			Succeeds("status", "primary/development");
 		}
 	}
 }

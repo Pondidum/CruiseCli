@@ -14,7 +14,7 @@ namespace Tests.Commands
 			_usages = new List<string[]>();
 		}
 
-		protected void Add(params string[] input)
+		protected void Succeeds(params string[] input)
 		{
 			_usages.Add(input);
 		}

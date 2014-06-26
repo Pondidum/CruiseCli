@@ -7,10 +7,10 @@ namespace Tests.Commands
 	{
 		public ServerCommandUsageTests()
 		{
-			Add("server");
-			Add("server", "list");
-			Add("server", "add", "local", "http://localhost:21234/CruiseManager.rem");
-			Add("server", "remove", "local");
+			Succeeds("server");
+			Succeeds("server", "list");
+			Succeeds("server", "add", "local", "http://localhost:21234/CruiseManager.rem");
+			Succeeds("server", "remove", "local");
 		}
 	}
 }
