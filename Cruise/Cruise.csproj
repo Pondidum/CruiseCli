@@ -51,10 +51,12 @@
     <Compile Include="Commands\Status\StatusCommand.cs" />
     <Compile Include="Commands\Status\StatusInputModel.cs" />
     <Compile Include="CruiseCommandExecutor.cs" />
+    <Compile Include="Infrastructure\IFileSystem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectName.cs" />
     <Compile Include="ProjectNameParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Storage\StorageController.cs" />
     <Compile Include="Storage\StorageModel.cs" />
   </ItemGroup>
   <ItemGroup>
