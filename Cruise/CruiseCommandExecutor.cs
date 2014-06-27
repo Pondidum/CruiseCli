@@ -1,4 +1,6 @@
 using FubuCore.CommandLine;
+using StructureMap;
+using StructureMap.Graph;
 
 namespace Cruise
 {
@@ -8,7 +10,14 @@ namespace Cruise
 
 		public CruiseCommandExecutor()
 		{
-			var factory = new CommandFactory();
+			var container = new Container(c => c.Scan(a =>
+			{
+				a.TheCallingAssembly();
+				a.WithDefaultConventions();
+			}));
+
+			var factory = new CommandFactory(new StructureMapAdaptor(container));
+
 			factory.RegisterCommands(typeof(IFubuCommand).Assembly);
 			factory.RegisterCommands(typeof(Program).Assembly);
 
