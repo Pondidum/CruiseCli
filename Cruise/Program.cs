@@ -11,8 +11,9 @@ namespace Cruise
 			try
 			{
 				var container = new Container(new CruiseRegistry());
+				var factoryBuilder = new CommandFactoryBuilder(container);
 
-				var executor = new CruiseCommandExecutor(container);
+				var executor = new CommandExecutor(factoryBuilder.Build());
 				var success = executor.Execute(args);
 
 				return success ? 0 : 1;

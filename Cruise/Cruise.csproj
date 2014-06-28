@@ -54,13 +54,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandFactoryBuilder.cs" />
     <Compile Include="Commands\Run\RunCommand.cs" />
     <Compile Include="Commands\Run\RunInputModel.cs" />
     <Compile Include="Commands\Server\ServerCommand.cs" />
     <Compile Include="Commands\Server\ServerInputModel.cs" />
     <Compile Include="Commands\Status\StatusCommand.cs" />
     <Compile Include="Commands\Status\StatusInputModel.cs" />
-    <Compile Include="CruiseCommandExecutor.cs" />
     <Compile Include="CruiseRegistry.cs" />
     <Compile Include="Infrastructure\FileSystem.cs" />
     <Compile Include="Infrastructure\IFileSystem.cs" />
