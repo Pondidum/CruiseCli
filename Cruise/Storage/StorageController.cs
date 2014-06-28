@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using Cruise.Infrastructure;
 using Newtonsoft.Json;
 
@@ -21,14 +23,16 @@ namespace Cruise.Storage
 		{
 			if (_fileSystem.FileExists(_path) == false)
 			{
-				return new StorageModel();
+				return new StorageModel(new StorageModelMemento());
 			}
 
 			using (var stream = _fileSystem.ReadFile(_path))
 			{
 				using (var sr = new StreamReader(stream))
 				{
-					return JsonConvert.DeserializeObject<StorageModel>(sr.ReadToEnd());
+					var memento = JsonConvert.DeserializeObject<StorageModelMemento>(sr.ReadToEnd());
+
+					return new StorageModel(memento);
 				}
 			}
 		}
@@ -44,6 +48,16 @@ namespace Cruise.Storage
 				ms.Position = 0;
 
 				_fileSystem.WriteFile(_path, ms);
+			}
+		}
+
+		public class StorageModelMemento
+		{
+			public Dictionary<string, Uri> Servers { get; set; }
+
+			public StorageModelMemento()
+			{
+				Servers= new Dictionary<string, Uri>();
 			}
 		}
 	}
