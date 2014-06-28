@@ -31,8 +31,6 @@ namespace Cruise
 			factory.RegisterCommands(typeof(Program).Assembly);
 
 			_executor = new CommandExecutor(factory);
-
-			container.GetInstance<StorageController>().Save(container.GetInstance<StorageModel>());
 		}
 
 		public bool Execute(string[] args)
