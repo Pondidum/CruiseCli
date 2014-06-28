@@ -61,6 +61,7 @@
     <Compile Include="Commands\Status\StatusCommand.cs" />
     <Compile Include="Commands\Status\StatusInputModel.cs" />
     <Compile Include="CruiseCommandExecutor.cs" />
+    <Compile Include="CruiseRegistry.cs" />
     <Compile Include="Infrastructure\FileSystem.cs" />
     <Compile Include="Infrastructure\IFileSystem.cs" />
     <Compile Include="Program.cs" />
