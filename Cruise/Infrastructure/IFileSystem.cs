@@ -8,5 +8,6 @@ namespace Cruise.Infrastructure
 
 		void WriteFile(string path, Stream contents);
 		Stream ReadFile(string path);
+		bool FileExists(string path);
 	}
 }

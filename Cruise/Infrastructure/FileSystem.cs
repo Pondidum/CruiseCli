@@ -19,5 +19,10 @@ namespace Cruise.Infrastructure
 		{
 			return new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
 		}
+
+		public bool FileExists(string path)
+		{
+			return File.Exists(path);
+		}
 	}
 }
