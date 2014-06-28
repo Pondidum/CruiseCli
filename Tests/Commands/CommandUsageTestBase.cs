@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using Cruise;
+using FubuCore.CommandLine;
 using Should;
 using StructureMap;
 using Xunit;
 
 namespace Tests.Commands
 {
-	public abstract class CommandUsageTestBase
+	public abstract class CommandUsageTestBase<TCommand> where TCommand : IFubuCommand
 	{
 		private readonly List<string[]> _succeedingInput;
 		private readonly List<string[]> _failingInput;
@@ -30,17 +31,24 @@ namespace Tests.Commands
 		[Fact]
 		public void All_succeeding_usages_run_successfully()
 		{
-			var executor = new CruiseCommandExecutor(new Container());
+			var factory = new CommandFactoryBuilder(new Container()).Build();
 
-			_succeedingInput.ForEach(command => executor.Execute(command).ShouldBeTrue(command.Join(" ")));
+			_succeedingInput.ForEach(command => factory
+				.BuildRun(command)
+				.Command
+				.ShouldBeType<TCommand>());
 		}
 
 		[Fact]
 		public void All_failing_usages_fail()
 		{
-			var executor = new CruiseCommandExecutor(new Container());
+			var factory = new CommandFactoryBuilder(new Container()).Build();
 
-			_failingInput.ForEach(command => executor.Execute(command).ShouldBeFalse(command.Join(" ")));
+			_failingInput.ForEach(command => factory
+				.BuildRun(command)
+				.Command
+				.ShouldBeType<HelpCommand>());
+
 		}
 	}
 }

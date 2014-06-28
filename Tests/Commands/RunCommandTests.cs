@@ -1,6 +1,8 @@
-﻿namespace Tests.Commands
+﻿using Cruise.Commands.Run;
+
+namespace Tests.Commands
 {
-	public class RunCommandTests : CommandUsageTestBase
+	public class RunCommandTests : CommandUsageTestBase<RunCommand>
 	{
 		public RunCommandTests()
 		{

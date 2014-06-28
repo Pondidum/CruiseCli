@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
+using Cruise.Commands.Server;
 
 namespace Tests.Commands
 {
-	public class ServerCommandUsageTests : CommandUsageTestBase
+	public class ServerCommandUsageTests : CommandUsageTestBase<ServerCommand>
 	{
 		public ServerCommandUsageTests()
 		{

@@ -1,9 +1,10 @@
-﻿using Should;
+﻿using Cruise.Commands.Status;
+using Should;
 using Xunit;
 
 namespace Tests.Commands
 {
-	public class StatusCommandUsageTests : CommandUsageTestBase
+	public class StatusCommandUsageTests : CommandUsageTestBase<StatusCommand>
 	{
 		public StatusCommandUsageTests()
 		{
