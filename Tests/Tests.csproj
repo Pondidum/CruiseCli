@@ -68,6 +68,7 @@
     <Compile Include="ProjectNameParser\ProjectNameParserTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scratchpad.cs" />
+    <Compile Include="Storage\StorageModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

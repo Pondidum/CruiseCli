@@ -20,5 +20,15 @@ namespace Cruise.Storage
 		{
 			return _servers.ContainsKey(serverName);
 		}
+
+		public void Register(string serverName, Uri serverUrl)
+		{
+			if (IsRegistered(serverName))
+			{
+				throw new ServerAlreadyRegisteredException(serverName, serverUrl);
+			}
+
+			_servers.Add(serverName, serverUrl);
+		}
 	}
 }
