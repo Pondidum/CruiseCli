@@ -1,3 +1,4 @@
+using Cruise.Storage;
 using FubuCore.CommandLine;
 using StructureMap;
 using StructureMap.Graph;
@@ -10,11 +11,19 @@ namespace Cruise
 
 		public CruiseCommandExecutor()
 		{
-			var container = new Container(c => c.Scan(a =>
+			var container = new Container(config =>
 			{
-				a.TheCallingAssembly();
-				a.WithDefaultConventions();
-			}));
+				config.Scan(a =>
+				{
+					a.TheCallingAssembly();
+					a.WithDefaultConventions();
+				});
+
+				config
+					.For<StorageModel>()
+					.Use(x => x.GetInstance<StorageController>().Load())
+					.Singleton();
+			});
 
 			var factory = new CommandFactory(new StructureMapAdaptor(container));
 
@@ -22,6 +31,8 @@ namespace Cruise
 			factory.RegisterCommands(typeof(Program).Assembly);
 
 			_executor = new CommandExecutor(factory);
+
+			container.GetInstance<StorageController>().Save(container.GetInstance<StorageModel>());
 		}
 
 		public bool Execute(string[] args)
