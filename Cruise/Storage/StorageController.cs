@@ -19,6 +19,11 @@ namespace Cruise.Storage
 
 		public StorageModel Load()
 		{
+			if (_fileSystem.FileExists(_path) == false)
+			{
+				return new StorageModel();
+			}
+
 			using (var stream = _fileSystem.ReadFile(_path))
 			{
 				using (var sr = new StreamReader(stream))
