@@ -11,11 +11,14 @@ namespace Tests.Commands
 	{
 		private readonly List<string[]> _succeedingInput;
 		private readonly List<string[]> _failingInput;
+		private readonly CommandFactory _factory;
 
 		protected CommandUsageTestBase()
 		{
 			_succeedingInput = new List<string[]>();
 			_failingInput = new List<string[]>();
+
+			_factory = new CommandFactoryBuilder(new Container(new CruiseRegistry())).Build();
 		}
 
 		protected void Succeeds(params string[] input)
@@ -31,9 +34,7 @@ namespace Tests.Commands
 		[Fact]
 		public void All_succeeding_usages_run_successfully()
 		{
-			var factory = new CommandFactoryBuilder(new Container()).Build();
-
-			_succeedingInput.ForEach(command => factory
+			_succeedingInput.ForEach(command => _factory
 				.BuildRun(command)
 				.Command
 				.ShouldBeType<TCommand>());
@@ -42,9 +43,7 @@ namespace Tests.Commands
 		[Fact]
 		public void All_failing_usages_fail()
 		{
-			var factory = new CommandFactoryBuilder(new Container()).Build();
-
-			_failingInput.ForEach(command => factory
+			_failingInput.ForEach(command => _factory
 				.BuildRun(command)
 				.Command
 				.ShouldBeType<HelpCommand>());

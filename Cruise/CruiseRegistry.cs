@@ -1,3 +1,4 @@
+using Cruise.Infrastructure;
 using Cruise.Storage;
 using StructureMap.Configuration.DSL;
 using StructureMap.Graph;
@@ -17,6 +18,8 @@ namespace Cruise
 			For<StorageModel>()
 				.Use(x => x.GetInstance<StorageController>().Load())
 				.Singleton();
+
+			For<IResponse>().Use<ConsoleResponse>();
 		}
 	}
 }
