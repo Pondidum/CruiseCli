@@ -15,7 +15,7 @@ namespace Cruise
 				a.WithDefaultConventions();
 			});
 
-			For<StorageModel>()
+			For<IStorageModel>()
 				.Use(x => x.GetInstance<StorageController>().Load())
 				.Singleton();
 

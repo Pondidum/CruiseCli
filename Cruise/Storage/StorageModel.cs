@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Cruise.Storage
 {
-	public class StorageModel
+	public class StorageModel : IStorageModel
 	{
 		private readonly Dictionary<string, Uri> _servers;
 

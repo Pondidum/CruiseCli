@@ -70,6 +70,7 @@
     <Compile Include="ProjectName.cs" />
     <Compile Include="ProjectNameParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Storage\IStorageModel.cs" />
     <Compile Include="Storage\ServerAlreadyRegisteredException.cs" />
     <Compile Include="Storage\StorageController.cs" />
     <Compile Include="Storage\StorageModel.cs" />
