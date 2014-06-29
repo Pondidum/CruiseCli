@@ -16,6 +16,11 @@ namespace Cruise.Storage
 				StringComparer.InvariantCultureIgnoreCase);
 		}
 
+		public  IEnumerable<KeyValuePair<string, Uri>> Servers
+		{
+			get { return _servers; }
+		}
+
 		public bool IsRegistered(string serverName)
 		{
 			return _servers.ContainsKey(serverName);
@@ -29,6 +34,11 @@ namespace Cruise.Storage
 			}
 
 			_servers.Add(serverName, serverUrl);
+		}
+
+		public void UnRegister(string serverName)
+		{
+			_servers.Remove(serverName);
 		}
 	}
 }
