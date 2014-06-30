@@ -8,7 +8,7 @@ namespace Cruise.Storage
 	{
 		private readonly Dictionary<string, Uri> _servers;
 
-		public StorageModel(StorageController.StorageModelMemento memento)
+		public StorageModel(StorageModelMemento memento)
 		{
 			_servers = memento.Servers.ToDictionary(
 				m => m.Key,
