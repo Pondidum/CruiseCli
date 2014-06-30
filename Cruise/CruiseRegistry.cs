@@ -16,7 +16,7 @@ namespace Cruise
 			});
 
 			For<IStorageModel>()
-				.Use(x => x.GetInstance<StorageController>().Load())
+				.Use(x => x.GetInstance<GetStorageModelQuery>().Execute())
 				.Singleton();
 
 			For<IResponse>().Use<ConsoleResponse>();
