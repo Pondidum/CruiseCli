@@ -12,7 +12,7 @@ namespace Tests.Storage
 
 		public StorageModelTests()
 		{
-			_model = new StorageModel(new StorageController.StorageModelMemento());
+			_model = new StorageModel(new StorageModelMemento());
 
 			_model.Register("test", new Uri("http://example.com"));
 		}
