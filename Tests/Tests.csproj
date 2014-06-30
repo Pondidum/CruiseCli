@@ -61,7 +61,10 @@
   <ItemGroup>
     <Compile Include="Commands\CommandUsageTestBase.cs" />
     <Compile Include="Commands\RunCommandTests.cs" />
-    <Compile Include="Commands\ServerCommandTests.cs" />
+    <Compile Include="Commands\ServerCommandTests\ServerAddTests.cs" />
+    <Compile Include="Commands\ServerCommandTests\ServerCommandUsageTests.cs" />
+    <Compile Include="Commands\ServerCommandTests\ServerListTests.cs" />
+    <Compile Include="Commands\ServerCommandTests\ServerRemoveTests.cs" />
     <Compile Include="Commands\StatusCommandTests.cs" />
     <Compile Include="ProjectNameParser\ParsingABlankName.cs" />
     <Compile Include="ProjectNameParser\ParsingANameBeginingWithSlash.cs" />

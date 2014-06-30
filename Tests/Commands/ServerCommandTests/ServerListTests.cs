@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cruise.Commands.Server;
@@ -7,38 +7,22 @@ using Cruise.Storage;
 using NSubstitute;
 using Xunit;
 
-namespace Tests.Commands
+namespace Tests.Commands.ServerCommandTests
 {
-	public class ServerCommandUsageTests : CommandUsageTestBase<ServerCommand>
-	{
-		public ServerCommandUsageTests()
-		{
-			Succeeds("server");
-			Succeeds("server", "list");
-			Succeeds("server", "--add", "local", "http://localhost:21234/CruiseManager.rem");
-			Succeeds("server", "--remove", "local");
-
-			Fails("server", "--add");
-			Fails("server", "--add", "local");
-			Fails("server", "--add", "http://localhost:21234/CruiseManager.rem");
-
-			Fails("server", "--remove");
-			Fails("server", "--remove", "local", "http://localhost:21234/CruiseManager.rem");
-		}
-	}
-
 	public class ServerListTests
 	{
 		private readonly ServerCommand _command;
 		private readonly IStorageModel _storage;
 		private readonly IResponse _response;
+		private readonly ISaveStorageModelCommand _save;
 
 		public ServerListTests()
 		{
+			_save = Substitute.For<ISaveStorageModelCommand>();
 			_storage = Substitute.For<IStorageModel>();
 			_response = Substitute.For<IResponse>();
 
-			_command = new ServerCommand(_storage, _response);
+			_command = new ServerCommand(_save, _storage, _response);
 		}
 
 		[Fact]
