@@ -76,7 +76,32 @@ namespace Tests.Commands.StatusCommandTests
 		[Fact]
 		public void When_there_are_two_servers_with_projects()
 		{
+			_storage.Servers.Returns(new[]
+			{
+				new ServerDetails("Test", new Uri("http://example.com")),
+				new ServerDetails("Second", new Uri("http://example.com"))
+			});
 
+			var project = Substitute.For<IProject>();
+			project.Name.Returns("Test Project");
+			project.Status.Returns("Success");
+
+			_transport.GetProjects("Test").Returns(new[] { project });
+			_transport.GetProjects("Second").Returns(new[] { project });
+
+			_command.Execute(new StatusInputModel());
+
+			var expected = new[]
+			{
+				"Test:",
+				"    Success     Test Project",
+				 "",
+				 "Second:",
+				"    Success     Test Project",
+				 ""
+			}.ToList();
+
+			_writer.Log.ShouldEqual(expected);
 		}
 	}
 }
