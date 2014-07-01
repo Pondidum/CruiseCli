@@ -4,6 +4,11 @@
 	{
 		public ProjectName Parse(string input)
 		{
+			if (string.IsNullOrWhiteSpace(input))
+			{
+				return new ProjectName(string.Empty, string.Empty);
+			}
+
 			var server = string.Empty;
 			var project = input;
 
