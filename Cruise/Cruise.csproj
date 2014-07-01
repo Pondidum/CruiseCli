@@ -81,7 +81,6 @@
     <Compile Include="Storage\StorageModelMemento.cs" />
     <Compile Include="Storage\SaveStorageModelCommand.cs" />
     <Compile Include="StructureMapAdaptor.cs" />
-    <Compile Include="Transport\IServer.cs" />
     <Compile Include="Transport\IProject.cs" />
     <Compile Include="Transport\ITransportModel.cs" />
   </ItemGroup>

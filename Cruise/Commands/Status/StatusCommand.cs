@@ -37,8 +37,7 @@ namespace Cruise.Commands.Status
 					_writer.Write("{0}:", detail.Name);
 
 					_transport
-						.GetServer(detail.Name)
-						.Projects
+						.GetProjects(detail.Name)
 						.Each(project => _writer.Write("    {0,-12}{1}", project.Status, project.Name));
 
 					_writer.Write("");

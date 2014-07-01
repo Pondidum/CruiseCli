@@ -33,7 +33,7 @@ namespace Tests.Commands.StatusCommandTests
 
 			_command.Execute(new StatusInputModel());
 
-			_transport.DidNotReceive().GetServer(Arg.Any<string>());
+			_transport.DidNotReceive().GetProjects(Arg.Any<string>());
 			_writer.Log.ShouldBeEmpty();
 		}
 
@@ -41,11 +41,9 @@ namespace Tests.Commands.StatusCommandTests
 		public void When_there_is_one_server_with_no_projects()
 		{
 			_storage.Servers.Returns(new[] { new ServerDetails("Test", new Uri("http://example.com")) });
-			_transport.GetServer("Test").Returns(Substitute.For<IServer>());
+			_transport.GetProjects("Test").Returns(Enumerable.Empty<IProject>());
 
 			_command.Execute(new StatusInputModel());
-
-			_transport.Received().GetServer("Test");
 
 			var expected = new[] { "Test:", "" }.ToList();
 
@@ -61,14 +59,9 @@ namespace Tests.Commands.StatusCommandTests
 			project.Name.Returns("Test Project");
 			project.Status.Returns("Success");
 
-			var server = Substitute.For<IServer>();
-			server.Projects.Returns(new[] { project });
-
-			_transport.GetServer("Test").Returns(server);
+			_transport.GetProjects("Test").Returns(new[] { project });
 
 			_command.Execute(new StatusInputModel());
-
-			_transport.Received().GetServer("Test");
 
 			var expected = new[]
 			{
