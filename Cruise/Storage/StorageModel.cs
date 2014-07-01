@@ -40,5 +40,15 @@ namespace Cruise.Storage
 		{
 			_servers.Remove(serverName);
 		}
+
+		public StorageModelMemento ToMemento()
+		{
+			var memento = new StorageModelMemento
+			{
+				Servers = Servers.ToDictionary(p => p.Key, p => p.Value)
+			};
+
+			return memento;
+		}
 	}
 }

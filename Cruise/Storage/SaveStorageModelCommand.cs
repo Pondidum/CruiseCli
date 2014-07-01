@@ -15,7 +15,7 @@ namespace Cruise.Storage
 
 		public void Execute(IStorageModel model)
 		{
-			var memento = StorageModelMemento.FromModel(model);
+			var memento = model.ToMemento();
 
 			var json = JsonConvert.SerializeObject(memento);
 

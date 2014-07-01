@@ -12,14 +12,5 @@ namespace Cruise.Storage
 		{
 			Servers = new Dictionary<string, Uri>();
 		}
-
-		public static StorageModelMemento FromModel(IStorageModel model)
-		{
-			var memento = new StorageModelMemento();
-
-			memento.Servers = model.Servers.ToDictionary(p => p.Key, p => p.Value);
-
-			return memento;
-		}
 	}
 }
