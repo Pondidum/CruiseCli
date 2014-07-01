@@ -1,11 +1,23 @@
-﻿using FubuCore.CommandLine;
+﻿using System.Collections.Generic;
+using Cruise.Infrastructure;
+using Cruise.Storage;
+using Cruise.Transport;
+using FubuCore.CommandLine;
 
 namespace Cruise.Commands.Status
 {
 	public class StatusCommand : FubuCommand<StatusInputModel>
 	{
-		public StatusCommand()
+		private readonly IStorageModel _storage;
+		private readonly ITransportModel _transport;
+		private readonly IResponse _writer;
+
+		public StatusCommand(IResponse writer, IStorageModel storage, ITransportModel transport)
 		{
+			_storage = storage;
+			_transport = transport;
+			_writer = writer;
+	
 			Usage("Lists the status of all projects on all servers")
 				.Arguments()
 				.ValidFlags();
@@ -16,6 +28,26 @@ namespace Cruise.Commands.Status
 
 		public override bool Execute(StatusInputModel input)
 		{
+			var projectSpec = new ProjectNameParser().Parse(input.Project);
+
+			if (projectSpec.IsBlank)
+			{
+				_storage.Servers.Each(detail =>
+				{
+					_writer.Write("{0}:", detail.Name);
+
+					_transport
+						.GetServer(detail.Name)
+						.Projects
+						.Each(project => _writer.Write("    {0,-12}{1}", project.Status, project.Name));
+
+					_writer.Write("");
+				});
+			}
+			else
+			{
+			}
+
 			return true;
 		}
 	}
