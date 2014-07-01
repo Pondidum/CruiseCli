@@ -5,7 +5,7 @@ namespace Cruise.Storage
 {
 	public interface IStorageModel
 	{
-		IEnumerable<KeyValuePair<string, Uri>> Servers { get; }
+		IEnumerable<IServerDetails> Servers { get; }
 
 		bool IsRegistered(string serverName);
 		void Register(string serverName, Uri serverUrl);

@@ -54,7 +54,7 @@ namespace Cruise.Commands.Server
 			}
 			else
 			{
-				_storage.Servers.Each(server => _response.Write("    {0}", server.Key));
+				_storage.Servers.Each(server => _response.Write("    {0}", server.Name));
 			}
 
 			return true;
