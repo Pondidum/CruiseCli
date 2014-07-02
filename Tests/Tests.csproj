@@ -68,6 +68,7 @@
     <Compile Include="Commands\StatusCommandTests\StatusCommandUsageTests.cs" />
     <Compile Include="Commands\StatusCommandTests\StatusTestBase.cs" />
     <Compile Include="Commands\StatusCommandTests\StatusTests.cs" />
+    <Compile Include="Commands\StatusCommandTests\StatusWithServerProjectArgument.cs" />
     <Compile Include="LogResponse.cs" />
     <Compile Include="ProjectNameParser\ParsingABlankName.cs" />
     <Compile Include="ProjectNameParser\ParsingANameBeginingWithSlash.cs" />
