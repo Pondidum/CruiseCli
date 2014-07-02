@@ -83,9 +83,6 @@ namespace Tests.Commands.StatusCommandTests
 				new ServerDetails("Second", new Uri("http://example.com"))
 			});
 
-			var p1 = NewProject("Test Project", "Success");
-			var p2 = NewProject("Test Project", "Success");
-
 			_transport.GetProjects("Test").Returns(new[] { TestProject });
 			_transport.GetProjects("Second").Returns(new[] { TestProject });
 
@@ -93,10 +90,10 @@ namespace Tests.Commands.StatusCommandTests
 
 			_writer.Log.ShouldEqual(new[]
 			{
-				"Test:",
+				"Second:",
 				"    Success     Test Project",
 				 "",
-				 "Second:",
+				 "Test:",
 				"    Success     Test Project",
 				 ""
 			});

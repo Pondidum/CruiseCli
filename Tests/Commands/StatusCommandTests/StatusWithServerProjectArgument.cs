@@ -59,7 +59,7 @@ namespace Tests.Commands.StatusCommandTests
 		{
 			var input = new StatusInputModel
 			{
-				Project = "First"
+				Project = "Test Project"
 			};
 
 			_transport
