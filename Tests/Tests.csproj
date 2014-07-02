@@ -66,6 +66,7 @@
     <Compile Include="Commands\ServerCommandTests\ServerListTests.cs" />
     <Compile Include="Commands\ServerCommandTests\ServerRemoveTests.cs" />
     <Compile Include="Commands\StatusCommandTests\StatusCommandUsageTests.cs" />
+    <Compile Include="Commands\StatusCommandTests\StatusTestBase.cs" />
     <Compile Include="Commands\StatusCommandTests\StatusTests.cs" />
     <Compile Include="LogResponse.cs" />
     <Compile Include="ProjectNameParser\ParsingABlankName.cs" />

@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Tests.Commands.StatusCommandTests
 {
-	public class StatusTests
+	public class StatusTests : StatusTestBase
 	{
 		private readonly LogResponse _writer;
 		private readonly IStorageModel _storage;
@@ -55,13 +55,14 @@ namespace Tests.Commands.StatusCommandTests
 		[Fact]
 		public void When_there_is_one_server_with_one_project()
 		{
-			_storage.Servers.Returns(new[] { new ServerDetails("Test", new Uri("http://example.com")) });
+			_storage.Servers.Returns(new[]
+			{
+				new ServerDetails("Test", new Uri("http://example.com"))
+			});
 
-			var project = Substitute.For<IProject>();
-			project.Name.Returns("Test Project");
-			project.Status.Returns("Success");
-
-			_transport.GetProjects("Test").Returns(new[] { project });
+			_transport
+				.GetProjects("Test")
+				.Returns(new[] { NewProject("Test Project", "Success") });
 
 			_command.Execute(new StatusInputModel());
 
@@ -82,12 +83,13 @@ namespace Tests.Commands.StatusCommandTests
 				new ServerDetails("Second", new Uri("http://example.com"))
 			});
 
-			var project = Substitute.For<IProject>();
-			project.Name.Returns("Test Project");
-			project.Status.Returns("Success");
+			_transport
+				.GetProjects("Test")
+				.Returns(new[] { NewProject("Test Project", "Success") });
 
-			_transport.GetProjects("Test").Returns(new[] { project });
-			_transport.GetProjects("Second").Returns(new[] { project });
+			_transport
+				.GetProjects("Second")
+				.Returns(new[] { NewProject("Test Project", "Success") });
 
 			_command.Execute(new StatusInputModel());
 
