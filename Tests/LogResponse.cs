@@ -5,16 +5,18 @@ namespace Tests
 {
 	public class LogResponse : IResponse
 	{
-		public List<string> Log { get; private set; }
+		public IEnumerable<string> Log { get { return _log; }}
+
+		private readonly List<string> _log;
 
 		public LogResponse()
 		{
-			Log = new List<string>();
+			_log = new List<string>();
 		}
 
 		public void Write(string format, params object[] args)
 		{
-			Log.Add(string.Format(format, args));
+			_log.Add(string.Format(format, args));
 		}
 	}
 }

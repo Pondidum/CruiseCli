@@ -45,9 +45,11 @@ namespace Tests.Commands.StatusCommandTests
 
 			_command.Execute(new StatusInputModel());
 
-			var expected = new[] { "Test:", "" }.ToList();
-
-			_writer.Log.ShouldEqual(expected);
+			_writer.Log.ShouldEqual(new[]
+			{
+				"Test:",
+				""
+			});
 		}
 
 		[Fact]
@@ -63,14 +65,12 @@ namespace Tests.Commands.StatusCommandTests
 
 			_command.Execute(new StatusInputModel());
 
-			var expected = new[]
+			_writer.Log.ShouldEqual(new[]
 			{
 				"Test:",
 				"    Success     Test Project",
 				 ""
-			}.ToList();
-
-			_writer.Log.ShouldEqual(expected);
+			});
 		}
 
 		[Fact]
@@ -91,7 +91,7 @@ namespace Tests.Commands.StatusCommandTests
 
 			_command.Execute(new StatusInputModel());
 
-			var expected = new[]
+			_writer.Log.ShouldEqual(new[]
 			{
 				"Test:",
 				"    Success     Test Project",
@@ -99,9 +99,7 @@ namespace Tests.Commands.StatusCommandTests
 				 "Second:",
 				"    Success     Test Project",
 				 ""
-			}.ToList();
-
-			_writer.Log.ShouldEqual(expected);
+			});
 		}
 	}
 }
