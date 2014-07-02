@@ -62,7 +62,7 @@ namespace Tests.Commands.StatusCommandTests
 
 			_transport
 				.GetProjects("Test")
-				.Returns(new[] { NewProject("Test Project", "Success") });
+				.Returns(new[] { TestProject });
 
 			_command.Execute(new StatusInputModel());
 
@@ -83,13 +83,11 @@ namespace Tests.Commands.StatusCommandTests
 				new ServerDetails("Second", new Uri("http://example.com"))
 			});
 
-			_transport
-				.GetProjects("Test")
-				.Returns(new[] { NewProject("Test Project", "Success") });
+			var p1 = NewProject("Test Project", "Success");
+			var p2 = NewProject("Test Project", "Success");
 
-			_transport
-				.GetProjects("Second")
-				.Returns(new[] { NewProject("Test Project", "Success") });
+			_transport.GetProjects("Test").Returns(new[] { TestProject });
+			_transport.GetProjects("Second").Returns(new[] { TestProject });
 
 			_command.Execute(new StatusInputModel());
 
