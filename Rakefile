@@ -14,6 +14,7 @@ end
 test_runner :test do |xunit|
 	xunit.exe = 'tools/xunit/xunit.console.clr4.exe'
 	xunit.files = FileList['**/bin/*/tests.dll']
+	xunit.add_parameter '/silent'
 end
 
 task :default => [ :restore, :compile, :test ]
