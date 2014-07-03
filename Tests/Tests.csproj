@@ -60,7 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\CommandUsageTestBase.cs" />
-    <Compile Include="Commands\RunCommandTests.cs" />
+    <Compile Include="Commands\RunCommandTests\RunCommandUsageTests.cs" />
     <Compile Include="Commands\ServerCommandTests\ServerAddTests.cs" />
     <Compile Include="Commands\ServerCommandTests\ServerCommandUsageTests.cs" />
     <Compile Include="Commands\ServerCommandTests\ServerListTests.cs" />

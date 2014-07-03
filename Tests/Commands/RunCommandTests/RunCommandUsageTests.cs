@@ -1,10 +1,10 @@
 ﻿using Cruise.Commands.Run;
 
-namespace Tests.Commands
+namespace Tests.Commands.RunCommandTests
 {
-	public class RunCommandTests : CommandUsageTestBase<RunCommand>
+	public class RunCommandUsageTests : CommandUsageTestBase<RunCommand>
 	{
-		public RunCommandTests()
+		public RunCommandUsageTests()
 		{
 			Succeeds("run", "development");
 			Succeeds("run", "primary/development");
