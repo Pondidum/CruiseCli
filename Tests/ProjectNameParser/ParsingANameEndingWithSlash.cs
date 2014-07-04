@@ -21,23 +21,5 @@ namespace Tests.ProjectNameParser
 		{
 			Result.Project.ShouldBeEmpty();
 		}
-
-		[Fact]
-		public void IsBlank()
-		{
-			Result.IsBlank.ShouldBeFalse();
-		}
-
-		[Fact]
-		public void HasServer()
-		{
-			Result.HasServer.ShouldBeTrue();
-		}
-
-		[Fact]
-		public void HasProject()
-		{
-			Result.HasProject.ShouldBeFalse();
-		}
 	}
 }
