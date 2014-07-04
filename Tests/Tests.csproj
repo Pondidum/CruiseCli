@@ -66,7 +66,7 @@
     <Compile Include="Commands\ServerCommandTests\ServerListTests.cs" />
     <Compile Include="Commands\ServerCommandTests\ServerRemoveTests.cs" />
     <Compile Include="Commands\StatusCommandTests\StatusCommandUsageTests.cs" />
-    <Compile Include="Commands\StatusCommandTests\CommandTestBase.cs" />
+    <Compile Include="Commands\CommandTestBase.cs" />
     <Compile Include="Commands\StatusCommandTests\StatusTests.cs" />
     <Compile Include="Commands\StatusCommandTests\StatusWithServerProjectArgument.cs" />
     <Compile Include="LogResponse.cs" />

@@ -1,8 +1,7 @@
-using System;
 using Cruise.Transport;
 using NSubstitute;
 
-namespace Tests.Commands.StatusCommandTests
+namespace Tests.Commands
 {
 	public class CommandTestBase
 	{
