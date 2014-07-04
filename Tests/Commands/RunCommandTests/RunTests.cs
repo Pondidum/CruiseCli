@@ -35,8 +35,9 @@ namespace Tests.Commands.RunCommandTests
 		{
 			var input = new RunInputModel();
 
-			_command.Execute(input);
+			var result = _command.Execute(input);
 
+			result.ShouldBeFalse();
 			_transport.DidNotReceive().TriggerProject(Arg.Any<string>(), Arg.Any<string>());
 		}
 
