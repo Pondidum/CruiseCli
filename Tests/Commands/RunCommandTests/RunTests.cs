@@ -52,6 +52,21 @@ namespace Tests.Commands.RunCommandTests
 		}
 
 		[Fact]
+		public void When_just_a_server_name_is_supplied()
+		{
+			var input = new RunInputModel { Project = "Primary/" };
+
+			_command.Execute(input);
+
+			_transport.DidNotReceive().TriggerProject(Arg.Any<string>(), Arg.Any<string>());
+			_writer.Log.ShouldEqual(new[]
+			{
+				"Error, you must specify a Project name.",
+				""
+			});
+		}
+
+		[Fact]
 		public void When_just_a_project_name_is_supplied_and_it_is_unique()
 		{
 			var input = new RunInputModel { Project = "Test Project" };
@@ -72,17 +87,17 @@ namespace Tests.Commands.RunCommandTests
 
 			_writer.Log.ShouldEqual(new[]
 			{
-				"Error, Ambiguous Project Name:",
+				"Error, ambiguous Project name.",
 				"Did you mean:",
-				"    Primary/Test Project",
-				"    Secondary/Test Project",
+				"    Primary/Other Project",
+				"    Secondary/Other Project",
 				"",
 			});
 
 		}
 
 		[Fact]
-		public void When_a_project_name_is_supplied_and_it_does_not_exist()
+		public void When_just_a_project_name_is_supplied_and_it_does_not_exist()
 		{
 			var input = new RunInputModel { Project = "Some Project" };
 
@@ -92,7 +107,7 @@ namespace Tests.Commands.RunCommandTests
 
 			_writer.Log.ShouldEqual(new[]
 			{
-				"Error, Unable to find project 'Some Project'.",
+				"Error, unable to find project 'Some Project'.",
 				""
 			});
 		}
@@ -108,7 +123,7 @@ namespace Tests.Commands.RunCommandTests
 
 			_writer.Log.ShouldEqual(new[]
 			{
-				"Error, Unable to find project 'Primary/Some Project'.",
+				"Error, unable to find project 'Primary/Some Project'.",
 				""
 			});
 		}

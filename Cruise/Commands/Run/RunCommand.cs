@@ -28,8 +28,11 @@ namespace Cruise.Commands.Run
 		{
 			var projectSpec = new ProjectNameParser().Parse(input.Project);
 			
-			if (projectSpec.IsBlank)
+			if (projectSpec.IsBlank || projectSpec.HasProject == false)
 			{
+				_writer.Write("Error, you must specify a Project name.");
+				_writer.Write("");
+
 				return false;
 			}
 
@@ -43,10 +46,40 @@ namespace Cruise.Commands.Run
 				}
 				else
 				{
-					_writer.Write("Error, Unable to find project '{0}'.", projectSpec);
+					_writer.Write("Error, unable to find project '{0}'.", projectSpec);
 					_writer.Write("");
+					return false;
 				}
 			}
+
+			var serverDetails = _storage
+				.Servers
+				.Where(server => _transport
+					.GetProjects(server.Name)
+					.Any(p => p.Name.EqualsIgnoreCase(projectSpec.Project)))
+				.ToList();
+
+			if (serverDetails.Any() == false)
+			{
+				_writer.Write("Error, unable to find project '{0}'.", projectSpec.Project);
+				_writer.Write("");
+				return false;
+			}
+
+			if (serverDetails.Count > 1)
+			{
+				_writer.Write("Error, ambiguous Project name.");
+				_writer.Write("Did you mean:");
+
+				serverDetails
+					.Select(detail => new ProjectName(detail.Name, projectSpec.Project))
+					.Each(detail => _writer.Write("    {0}", detail));
+				_writer.Write("");
+
+				return false;
+			}
+
+			_transport.TriggerProject(serverDetails.First().Name, projectSpec.Project);
 
 			return true;
 		}
