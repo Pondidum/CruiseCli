@@ -15,6 +15,8 @@ namespace Tests
 			name.IsBlank.ShouldBeTrue();
 			name.HasServer.ShouldBeFalse();
 			name.HasProject.ShouldBeFalse();
+
+			name.ToString().ShouldEqual("<empty>");
 		}
 
 		[Fact]
@@ -25,6 +27,8 @@ namespace Tests
 			name.IsBlank.ShouldBeTrue();
 			name.HasServer.ShouldBeFalse();
 			name.HasProject.ShouldBeFalse();
+
+			name.ToString().ShouldEqual("<empty>");
 		}
 
 		[Fact]
@@ -35,6 +39,8 @@ namespace Tests
 			name.IsBlank.ShouldBeFalse();
 			name.HasServer.ShouldBeTrue();
 			name.HasProject.ShouldBeFalse();
+
+			name.ToString().ShouldEqual("primary/");
 		}
 
 		[Fact]
@@ -45,16 +51,20 @@ namespace Tests
 			name.IsBlank.ShouldBeFalse();
 			name.HasServer.ShouldBeFalse();
 			name.HasProject.ShouldBeTrue();
+
+			name.ToString().ShouldEqual("test");
 		}
 
 		[Fact]
 		public void When_the_server_and_project_have_values()
 		{
-			var name = new ProjectName("primary", "tetst");
+			var name = new ProjectName("primary", "test");
 
 			name.IsBlank.ShouldBeFalse();
 			name.HasServer.ShouldBeTrue();
 			name.HasProject.ShouldBeTrue();
+
+			name.ToString().ShouldEqual("primary/test");
 		}
 	}
 }
