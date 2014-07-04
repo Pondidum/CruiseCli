@@ -4,12 +4,12 @@ using NSubstitute;
 
 namespace Tests.Commands.StatusCommandTests
 {
-	public class StatusTestBase
+	public class CommandTestBase
 	{
 		protected IProject TestProject;
 		protected IProject OtherProject;
 
-		public StatusTestBase()
+		public CommandTestBase()
 		{
 			TestProject = NewProject("Test Project", "Success");
 			OtherProject = NewProject("Other Project", "Success");

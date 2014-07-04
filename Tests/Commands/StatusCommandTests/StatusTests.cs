@@ -10,7 +10,7 @@ using Xunit;
 
 namespace Tests.Commands.StatusCommandTests
 {
-	public class StatusTests : StatusTestBase
+	public class StatusTests : CommandTestBase
 	{
 		private readonly LogResponse _writer;
 		private readonly IStorageModel _storage;

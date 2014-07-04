@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Tests.Commands.StatusCommandTests
 {
-	public class StatusWithServerProjectArgumentTests : StatusTestBase
+	public class StatusWithServerProjectArgumentTests : CommandTestBase
 	{
 		private readonly LogResponse _writer;
 		private readonly IStorageModel _storage;
