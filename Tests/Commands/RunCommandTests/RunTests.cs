@@ -1,5 +1,7 @@
+using System;
 using System.Linq;
 using Cruise.Commands.Run;
+using Cruise.Storage;
 using Cruise.Transport;
 using NSubstitute;
 using Should;
@@ -10,12 +12,20 @@ namespace Tests.Commands.RunCommandTests
 	public class RunTests : CommandTestBase
 	{
 		private readonly ITransportModel _transport;
-		private readonly RunCommand _command;
+		private readonly IStorageModel _storage;
 		private readonly LogResponse _writer;
+		private readonly RunCommand _command;
 
 		public RunTests()
 		{
 			_writer = new LogResponse();
+
+			_storage = Substitute.For<IStorageModel>();
+			_storage.Servers.Returns(new[]
+			{
+				new ServerDetails("Primary", new Uri("http://p.example.com")),
+				new ServerDetails("Secondary", new Uri("http://s.example.com")), 
+			});
 
 			_transport = Substitute.For<ITransportModel>();
 
@@ -27,7 +37,7 @@ namespace Tests.Commands.RunCommandTests
 				.GetProjects("Secondary")
 				.Returns(new[] { OtherProject });
 
-			_command = new RunCommand(_writer, _transport);
+			_command = new RunCommand(_writer, _storage, _transport);
 		}
 
 		[Fact]
