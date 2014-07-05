@@ -70,6 +70,7 @@
     <Compile Include="Commands\CommandTestBase.cs" />
     <Compile Include="Commands\StatusCommandTests\StatusTests.cs" />
     <Compile Include="Commands\StatusCommandTests\StatusWithServerProjectArgument.cs" />
+    <Compile Include="FakeStorageModel.cs" />
     <Compile Include="LogResponse.cs" />
     <Compile Include="ProjectNameParser\ParsingABlankName.cs" />
     <Compile Include="ProjectNameParser\ParsingANameBeginingWithSlash.cs" />

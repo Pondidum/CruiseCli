@@ -23,10 +23,9 @@ namespace Tests.Commands.StatusCommandTests
 			_primaryServer = new ServerDetails("Primary", new Uri("http://p.example.com"));
 			_secondaryServer = new ServerDetails("Secondary", new Uri("http://s.example.com"));
 
-			var storage = Substitute.For<IStorageModel>();
-			storage.Servers.Returns(new[] { _primaryServer, _secondaryServer });
-			storage.GetServerByName("Primary").Returns(_primaryServer);
-			storage.GetServerByName("Secondary").Returns(_secondaryServer);
+			var storage = new FakeStorageModel();
+			storage.Insert(_primaryServer);
+			storage.Insert(_secondaryServer);
 
 			_transport = Substitute.For<ITransportModel>();
 

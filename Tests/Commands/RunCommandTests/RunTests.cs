@@ -12,7 +12,6 @@ namespace Tests.Commands.RunCommandTests
 	public class RunTests : CommandTestBase
 	{
 		private readonly ITransportModel _transport;
-		private readonly IStorageModel _storage;
 		private readonly LogResponse _writer;
 		private readonly RunCommand _command;
 		private readonly IServerDetails _primaryServer;
@@ -25,10 +24,9 @@ namespace Tests.Commands.RunCommandTests
 			_primaryServer = new ServerDetails("Primary", new Uri("http://p.example.com"));
 			_secondaryServer = new ServerDetails("Secondary", new Uri("http://s.example.com"));
 
-			_storage = Substitute.For<IStorageModel>();
-			_storage.Servers.Returns(new[] { _primaryServer, _secondaryServer });
-			_storage.GetServerByName("Primary").Returns(_primaryServer);
-			_storage.GetServerByName("Secondary").Returns(_secondaryServer);
+			var storage = new FakeStorageModel();
+			storage.Insert(_primaryServer);
+			storage.Insert(_secondaryServer);
 
 			_transport = Substitute.For<ITransportModel>();
 
@@ -40,7 +38,7 @@ namespace Tests.Commands.RunCommandTests
 				.GetProjects(_secondaryServer)
 				.Returns(new[] { OtherProject });
 
-			_command = new RunCommand(_writer, _storage, _transport);
+			_command = new RunCommand(_writer, storage, _transport);
 		}
 
 		[Fact]

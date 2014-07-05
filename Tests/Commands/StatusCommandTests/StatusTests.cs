@@ -13,7 +13,7 @@ namespace Tests.Commands.StatusCommandTests
 	public class StatusTests : CommandTestBase
 	{
 		private readonly LogResponse _writer;
-		private readonly IStorageModel _storage;
+		private readonly FakeStorageModel _storage;
 		private readonly ITransportModel _transport;
 		private readonly StatusCommand _command;
 		private readonly IServerDetails _testServer;
@@ -25,7 +25,7 @@ namespace Tests.Commands.StatusCommandTests
 			_secondServer = new ServerDetails("Second", new Uri("http://example.com"));
 
 			_writer = new LogResponse();
-			_storage = Substitute.For<IStorageModel>();
+			_storage = new FakeStorageModel();
 			_transport = Substitute.For<ITransportModel>();
 
 			_command = new StatusCommand(_writer, _storage, _transport);
@@ -34,8 +34,6 @@ namespace Tests.Commands.StatusCommandTests
 		[Fact]
 		public void When_there_are_no_servers()
 		{
-			_storage.Servers.Returns(Enumerable.Empty<ServerDetails>());
-
 			_command.Execute(new StatusInputModel());
 
 			_transport.DidNotReceive().GetProjects(Arg.Any<IServerDetails>());
@@ -45,7 +43,7 @@ namespace Tests.Commands.StatusCommandTests
 		[Fact]
 		public void When_there_is_one_server_with_no_projects()
 		{
-			_storage.Servers.Returns(new[] { _testServer });
+			_storage.Insert(_testServer);
 			_transport.GetProjects(_testServer).Returns(Enumerable.Empty<IProject>());
 
 			_command.Execute(new StatusInputModel());
@@ -60,7 +58,7 @@ namespace Tests.Commands.StatusCommandTests
 		[Fact]
 		public void When_there_is_one_server_with_one_project()
 		{
-			_storage.Servers.Returns(new[] { _testServer });
+			_storage.Insert(_testServer);
 
 			_transport
 				.GetProjects(_testServer)
@@ -79,7 +77,8 @@ namespace Tests.Commands.StatusCommandTests
 		[Fact]
 		public void When_there_are_two_servers_with_projects()
 		{
-			_storage.Servers.Returns(new[] { _testServer, _secondServer });
+			_storage.Insert(_testServer);
+			_storage.Insert(_secondServer);
 
 			_transport.GetProjects(_testServer).Returns(new[] { TestProject });
 			_transport.GetProjects(_secondServer).Returns(new[] { TestProject });
