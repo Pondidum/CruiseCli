@@ -11,6 +11,8 @@ namespace Cruise.Storage
 		void Register(string serverName, Uri serverUrl);
 		void UnRegister(string serverName);
 
+		IServerDetails GetServerByName(string serverName);
+
 		StorageModelMemento ToMemento();
 	}
 }

@@ -15,26 +15,27 @@ namespace Tests.Commands.RunCommandTests
 		private readonly IStorageModel _storage;
 		private readonly LogResponse _writer;
 		private readonly RunCommand _command;
+		private readonly IServerDetails _primaryServer;
+		private readonly IServerDetails _secondaryServer;
 
 		public RunTests()
 		{
 			_writer = new LogResponse();
 
+			_primaryServer = new ServerDetails("Primary", new Uri("http://p.example.com"));
+			_secondaryServer = new ServerDetails("Secondary", new Uri("http://s.example.com"));
+
 			_storage = Substitute.For<IStorageModel>();
-			_storage.Servers.Returns(new[]
-			{
-				new ServerDetails("Primary", new Uri("http://p.example.com")),
-				new ServerDetails("Secondary", new Uri("http://s.example.com")), 
-			});
+			_storage.Servers.Returns(new[] { _primaryServer, _secondaryServer });
 
 			_transport = Substitute.For<ITransportModel>();
 
 			_transport
-				.GetProjects("Primary")
+				.GetProjects(_primaryServer)
 				.Returns(new[] { TestProject, OtherProject });
 
 			_transport
-				.GetProjects("Secondary")
+				.GetProjects(_secondaryServer)
 				.Returns(new[] { OtherProject });
 
 			_command = new RunCommand(_writer, _storage, _transport);
@@ -48,7 +49,7 @@ namespace Tests.Commands.RunCommandTests
 			var result = _command.Execute(input);
 
 			result.ShouldBeFalse();
-			_transport.DidNotReceive().TriggerProject(Arg.Any<string>(), Arg.Any<string>());
+			_transport.DidNotReceive().TriggerProject(Arg.Any<IServerDetails>(), Arg.Any<string>());
 		}
 
 		[Fact]
@@ -58,7 +59,7 @@ namespace Tests.Commands.RunCommandTests
 
 			_command.Execute(input);
 
-			_transport.DidNotReceive().TriggerProject(Arg.Any<string>(), Arg.Any<string>());
+			_transport.DidNotReceive().TriggerProject(Arg.Any<IServerDetails>(), Arg.Any<string>());
 			_writer.Log.ShouldEqual(new[]
 			{
 				"Error, you must specify a Project name.",
@@ -73,7 +74,7 @@ namespace Tests.Commands.RunCommandTests
 
 			_command.Execute(input);
 
-			_transport.Received().TriggerProject("Primary", "Test Project");
+			_transport.Received().TriggerProject(_primaryServer, "Test Project");
 		}
 
 		[Fact]
@@ -83,7 +84,7 @@ namespace Tests.Commands.RunCommandTests
 
 			_command.Execute(input);
 
-			_transport.DidNotReceive().TriggerProject(Arg.Any<string>(), Arg.Any<string>());
+			_transport.DidNotReceive().TriggerProject(Arg.Any<IServerDetails>(), Arg.Any<string>());
 
 			_writer.Log.ShouldEqual(new[]
 			{
@@ -103,7 +104,7 @@ namespace Tests.Commands.RunCommandTests
 
 			_command.Execute(input);
 
-			_transport.DidNotReceive().TriggerProject(Arg.Any<string>(), Arg.Any<string>());
+			_transport.DidNotReceive().TriggerProject(Arg.Any<IServerDetails>(), Arg.Any<string>());
 
 			_writer.Log.ShouldEqual(new[]
 			{
@@ -119,7 +120,7 @@ namespace Tests.Commands.RunCommandTests
 
 			_command.Execute(input);
 
-			_transport.DidNotReceive().TriggerProject(Arg.Any<string>(), Arg.Any<string>());
+			_transport.DidNotReceive().TriggerProject(Arg.Any<IServerDetails>(), Arg.Any<string>());
 
 			_writer.Log.ShouldEqual(new[]
 			{
@@ -135,7 +136,7 @@ namespace Tests.Commands.RunCommandTests
 
 			_command.Execute(input);
 
-			_transport.Received().TriggerProject("Primary", "Test Project");
+			_transport.Received().TriggerProject(_primaryServer, "Test Project");
 		}
 	}
 }

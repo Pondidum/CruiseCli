@@ -11,25 +11,24 @@ namespace Tests.Commands.StatusCommandTests
 	public class StatusWithServerProjectArgumentTests : CommandTestBase
 	{
 		private readonly LogResponse _writer;
-		private readonly IStorageModel _storage;
 		private readonly ITransportModel _transport;
 		private readonly StatusCommand _command;
+		private readonly IServerDetails _primaryServer;
+		private readonly IServerDetails _secondaryServer;
 
 		public StatusWithServerProjectArgumentTests()
 		{
 			_writer = new LogResponse();
-			_storage = Substitute.For<IStorageModel>();
+
+			_primaryServer = new ServerDetails("Primary", new Uri("http://p.example.com"));
+			_secondaryServer = new ServerDetails("Secondary", new Uri("http://s.example.com"));
+
+			var storage = Substitute.For<IStorageModel>();
+			storage.Servers.Returns(new[] { _primaryServer, _secondaryServer });
+
 			_transport = Substitute.For<ITransportModel>();
 
-			_command = new StatusCommand(_writer, _storage, _transport);
-
-
-			_storage.Servers.Returns(new[]
-			{
-				new ServerDetails("Primary", new Uri("http://p.example.com")),
-				new ServerDetails("Secondary", new Uri("http://s.example.com"))
-			});
-
+			_command = new StatusCommand(_writer, storage, _transport);
 		}
 
 		[Fact]
@@ -41,8 +40,8 @@ namespace Tests.Commands.StatusCommandTests
 			};
 
 			_transport
-				.GetProjects("Primary")
-				.Returns(new[] { TestProject});
+				.GetProjects(_primaryServer)
+				.Returns(new[] { TestProject });
 
 			_command.Execute(input);
 
@@ -63,11 +62,11 @@ namespace Tests.Commands.StatusCommandTests
 			};
 
 			_transport
-				.GetProjects("Primary")
+				.GetProjects(_primaryServer)
 				.Returns(new[] { TestProject });
 
 			_transport
-				.GetProjects("Secondary")
+				.GetProjects(_secondaryServer)
 				.Returns(new[] { OtherProject });
 
 			_command.Execute(input);
@@ -89,11 +88,11 @@ namespace Tests.Commands.StatusCommandTests
 			};
 
 			_transport
-				.GetProjects("Primary")
+				.GetProjects(_primaryServer)
 				.Returns(new[] { TestProject });
 
 			_transport
-				.GetProjects("Secondary")
+				.GetProjects(_secondaryServer)
 				.Returns(new[] { TestProject });
 
 			_command.Execute(input);
@@ -118,7 +117,7 @@ namespace Tests.Commands.StatusCommandTests
 			};
 
 			_transport
-				.GetProjects("Primary")
+				.GetProjects(_primaryServer)
 				.Returns(new[] { TestProject });
 
 			_command.Execute(input);

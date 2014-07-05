@@ -38,11 +38,11 @@ namespace Cruise.Commands.Run
 
 			if (projectSpec.HasServer && projectSpec.HasProject)
 			{
-				var projects = _transport.GetProjects(projectSpec.Server);
+				var projects = _transport.GetProjects(_storage.GetServerByName(projectSpec.Server));
 
 				if (projects.Any(project => project.Name.EqualsIgnoreCase(projectSpec.Project)))
 				{
-					_transport.TriggerProject(projectSpec.Server, projectSpec.Project);
+					_transport.TriggerProject(_storage.GetServerByName(projectSpec.Server), projectSpec.Project);
 				}
 				else
 				{
@@ -55,7 +55,7 @@ namespace Cruise.Commands.Run
 			var serverDetails = _storage
 				.Servers
 				.Where(server => _transport
-					.GetProjects(server.Name)
+					.GetProjects(server)
 					.Any(p => p.Name.EqualsIgnoreCase(projectSpec.Project)))
 				.ToList();
 
@@ -79,7 +79,7 @@ namespace Cruise.Commands.Run
 				return false;
 			}
 
-			_transport.TriggerProject(serverDetails.First().Name, projectSpec.Project);
+			_transport.TriggerProject(serverDetails.First(), projectSpec.Project);
 
 			return true;
 		}

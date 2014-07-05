@@ -37,11 +37,11 @@ namespace Cruise.Commands.Status
 
 			if (projectSpec.IsBlank)
 			{
-				toDisplay =_storage.Servers.ToDictionary(s => s.Name, s => _transport.GetProjects(s.Name));
+				toDisplay =_storage.Servers.ToDictionary(s => s.Name, s => _transport.GetProjects(s));
 			}
 			else if (projectSpec.HasServer && projectSpec.HasProject)
 			{
-				var projects = _transport.GetProjects(projectSpec.Server);
+				var projects = _transport.GetProjects(_storage.GetServerByName(projectSpec.Server));
 				var project = projects.FirstOrDefault(p => p.Name.EqualsIgnoreCase(projectSpec.Project));
 
 				if (project != null)
@@ -51,7 +51,7 @@ namespace Cruise.Commands.Status
 			}
 			else if (projectSpec.HasServer)
 			{
-				toDisplay.Add(projectSpec.Server, _transport.GetProjects(projectSpec.Server));
+				toDisplay.Add(projectSpec.Server, _transport.GetProjects(_storage.GetServerByName(projectSpec.Server)));
 			}
 			else if (projectSpec.HasProject)
 			{
@@ -59,7 +59,7 @@ namespace Cruise.Commands.Status
 					.Servers
 					.ToDictionary(
 						s => s.Name,
-						s => _transport.GetProjects(s.Name).Where(p => p.Name.EqualsIgnoreCase(projectSpec.Project))
+						s => _transport.GetProjects(s).Where(p => p.Name.EqualsIgnoreCase(projectSpec.Project))
 					)
 					.Where(pair => pair.Value.Any());
 

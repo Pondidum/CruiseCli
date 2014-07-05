@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using Cruise.Storage;
 
 namespace Cruise.Transport
 {
 	public interface ITransportModel
 	{
-		IEnumerable<IProject> GetProjects(string serverName);
+		IEnumerable<IProject> GetProjects(IServerDetails server);
 
-		void StartProject(string serverName, string projectName);
-		void StopProject(string serverName, string projectName);
-		void TriggerProject(string serverName, string projectName);
+		void StartProject(IServerDetails server, string projectName);
+		void StopProject(IServerDetails server, string projectName);
+		void TriggerProject(IServerDetails server, string projectName);
 	}
 }

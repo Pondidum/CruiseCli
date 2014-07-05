@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FubuCore;
 
 namespace Cruise.Storage
 {
@@ -42,6 +43,11 @@ namespace Cruise.Storage
 		public void UnRegister(string serverName)
 		{
 			_servers.RemoveAll(server => server.Name.Equals(serverName, Ignore));
+		}
+
+		public IServerDetails GetServerByName(string serverName)
+		{
+			return _servers.FirstOrDefault(s => s.Name.EqualsIgnoreCase(serverName));
 		}
 
 		public StorageModelMemento ToMemento()
