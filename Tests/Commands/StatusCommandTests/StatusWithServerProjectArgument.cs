@@ -25,6 +25,8 @@ namespace Tests.Commands.StatusCommandTests
 
 			var storage = Substitute.For<IStorageModel>();
 			storage.Servers.Returns(new[] { _primaryServer, _secondaryServer });
+			storage.GetServerByName("Primary").Returns(_primaryServer);
+			storage.GetServerByName("Secondary").Returns(_secondaryServer);
 
 			_transport = Substitute.For<ITransportModel>();
 
