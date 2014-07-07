@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Tests
 {
-	public class DebuggerOnlyAttribute : FactAttribute
+	public class FactDebuggerOnlyAttribute : FactAttribute
 	{
 		public override string Skip
 		{
