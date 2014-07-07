@@ -28,7 +28,7 @@ namespace Cruise.Storage
 				{
 					var memento = JsonConvert.DeserializeObject<StorageModelMemento>(sr.ReadToEnd());
 
-					return new StorageModel(memento);
+					return new StorageModel(memento ?? new StorageModelMemento());
 				}
 			}
 		}

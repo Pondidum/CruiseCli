@@ -87,6 +87,7 @@
     <Compile Include="ProjectNameTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scratchpad.cs" />
+    <Compile Include="Storage\GetStorageModelQueryTests.cs" />
     <Compile Include="Storage\StorageModelTests.cs" />
     <Compile Include="Transport\CruiseControlTransportModelTests.cs" />
   </ItemGroup>
