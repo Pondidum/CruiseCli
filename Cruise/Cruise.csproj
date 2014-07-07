@@ -52,6 +52,12 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="ThoughtWorks.CruiseControl.Core">
+      <HintPath>..\packages\CruiseControl.1.8.5.0\ThoughtWorks.CruiseControl.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ThoughtWorks.CruiseControl.Remote">
+      <HintPath>..\packages\CruiseControl.1.8.5.0\ThoughtWorks.CruiseControl.Remote.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationSettings.cs" />
@@ -81,8 +87,12 @@
     <Compile Include="Storage\StorageModelMemento.cs" />
     <Compile Include="Storage\SaveStorageModelCommand.cs" />
     <Compile Include="StructureMapAdaptor.cs" />
+    <Compile Include="Transport\CruiseControlTransportModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Transport\IProject.cs" />
     <Compile Include="Transport\ITransportModel.cs" />
+    <Compile Include="Transport\Project.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
