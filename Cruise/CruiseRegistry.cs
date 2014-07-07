@@ -20,9 +20,11 @@ namespace Cruise
 				.Use(x => x.GetInstance<GetStorageModelQuery>().Execute())
 				.Singleton();
 
-			For<IResponse>().Use<ConsoleResponse>();
+			For<IResponse>()
+				.Use<ConsoleResponse>();
 
-			For<ITransportModel>().Use(() => (ITransportModel)null);
+			For<ITransportModel>()
+				.Use<CruiseControlTransportModel>();
 		}
 	}
 }
