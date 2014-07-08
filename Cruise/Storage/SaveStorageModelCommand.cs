@@ -23,6 +23,8 @@ namespace Cruise.Storage
 			using (var writer = new StreamWriter(stream))
 			{
 				writer.Write(json);
+				writer.Flush();
+
 				stream.Position = 0;
 
 				_fileSystem.WriteFile(
