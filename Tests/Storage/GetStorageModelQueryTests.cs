@@ -12,31 +12,19 @@ namespace Tests.Storage
 {
 	public class GetStorageModelQueryTests
 	{
-		private readonly IFileSystem _fileSystem;
+		private readonly IConfigStore _configuration;
 
 		public GetStorageModelQueryTests()
 		{
-			_fileSystem = Substitute.For<IFileSystem>();
-		}
-
-		[Fact]
-		public void When_the_file_doesnt_exist()
-		{
-			_fileSystem.FileExists(Arg.Any<string>()).Returns(false);
-
-			var query = new GetStorageModelQuery(_fileSystem);
-			var model = query.Execute();
-
-			model.Servers.ShouldBeEmpty();
+			_configuration = Substitute.For<IConfigStore>();
 		}
 
 		[Fact]
 		public void When_the_file_exists_but_is_empty()
 		{
-			_fileSystem.FileExists(Arg.Any<string>()).Returns(true);
-			_fileSystem.ReadFile(Arg.Any<string>()).Returns(new MemoryStream());
+			_configuration.Read().Returns(new MemoryStream());
 
-			var query = new GetStorageModelQuery(_fileSystem);
+			var query = new GetStorageModelQuery(_configuration);
 			var model = query.Execute();
 
 			model.Servers.ShouldBeEmpty();
@@ -52,10 +40,9 @@ namespace Tests.Storage
 				sw.Flush();
 				ms.Position = 0;
 
-				_fileSystem.FileExists(Arg.Any<string>()).Returns(true);
-				_fileSystem.ReadFile(Arg.Any<string>()).Returns(ms);
+				_configuration.Read().Returns(ms);
 
-				var query = new GetStorageModelQuery(_fileSystem);
+				var query = new GetStorageModelQuery(_configuration);
 
 				Assert.Throws<JsonReaderException>(() => query.Execute());
 			}
@@ -71,10 +58,9 @@ namespace Tests.Storage
 				sw.Flush();
 				ms.Position = 0;
 
-				_fileSystem.FileExists(Arg.Any<string>()).Returns(true);
-				_fileSystem.ReadFile(Arg.Any<string>()).Returns(ms);
+				_configuration.Read().Returns(ms);
 
-				var query = new GetStorageModelQuery(_fileSystem);
+				var query = new GetStorageModelQuery(_configuration);
 				var model = query.Execute();
 
 				var server = model.Servers.First();

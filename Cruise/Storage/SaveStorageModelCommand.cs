@@ -6,11 +6,11 @@ namespace Cruise.Storage
 {
 	public class SaveStorageModelCommand : ISaveStorageModelCommand
 	{
-		private readonly IFileSystem _fileSystem;
+		private readonly IConfigStore _configuration;
 
-		public SaveStorageModelCommand(IFileSystem fileSystem)
+		public SaveStorageModelCommand(IConfigStore configuration)
 		{
-			_fileSystem = fileSystem;
+			_configuration = configuration;
 		}
 
 		public void Execute(IStorageModel model)
@@ -27,9 +27,7 @@ namespace Cruise.Storage
 
 				stream.Position = 0;
 
-				_fileSystem.WriteFile(
-					Path.Combine(_fileSystem.HomePath, ApplicationSettings.Filename), 
-					stream);
+				_configuration.Write(stream);
 			}
 		}
 	}

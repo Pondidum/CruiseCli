@@ -70,8 +70,8 @@
     <Compile Include="Commands\Status\StatusInputModel.cs" />
     <Compile Include="CruiseRegistry.cs" />
     <Compile Include="Infrastructure\ConsoleResponse.cs" />
-    <Compile Include="Infrastructure\FileSystem.cs" />
-    <Compile Include="Infrastructure\IFileSystem.cs" />
+    <Compile Include="Infrastructure\UserProfileConfigStore.cs" />
+    <Compile Include="Infrastructure\IConfigStore.cs" />
     <Compile Include="Infrastructure\IResponse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectName.cs" />

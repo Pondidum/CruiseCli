@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using Cruise.Storage;
-//using FubuCore;
 using NSubstitute;
 using Should;
 using Xunit;
@@ -12,14 +11,14 @@ namespace Tests.Storage
 {
 	public class SaveStorageModelCommandTests
 	{
-		private readonly IFileSystem _fileSystem;
+		private readonly IConfigStore _fileSystem;
 		private string _contents;
 
 		public SaveStorageModelCommandTests()
 		{
-			_fileSystem = Substitute.For<IFileSystem>();
+			_fileSystem = Substitute.For<IConfigStore>();
 			_fileSystem
-				.When(f => f.WriteFile(Arg.Any<string>(), Arg.Any<Stream>()))
+				.When(f => f.Write(Arg.Any<Stream>()))
 				.Do(info =>
 				{
 					var ms = (MemoryStream)info.Arg<Stream>();
@@ -37,7 +36,7 @@ namespace Tests.Storage
 			var cmd = new SaveStorageModelCommand(_fileSystem);
 			cmd.Execute(model);
 
-			_fileSystem.Received().WriteFile(Arg.Any<string>(), Arg.Any<Stream>());
+			_fileSystem.Received().Write(Arg.Any<Stream>());
 			_contents.ShouldNotBeEmpty();
 		}
 
@@ -50,7 +49,7 @@ namespace Tests.Storage
 			var cmd = new SaveStorageModelCommand(_fileSystem);
 			cmd.Execute(model);
 
-			_fileSystem.Received().WriteFile(Arg.Any<string>(), Arg.Any<Stream>());
+			_fileSystem.Received().Write(Arg.Any<Stream>());
 			_contents.ShouldNotBeEmpty();
 		}
 	}

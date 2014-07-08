@@ -20,6 +20,9 @@ namespace Cruise
 				.Use(x => x.GetInstance<GetStorageModelQuery>().Execute())
 				.Singleton();
 
+			For<IConfigStore>()
+				.Use<UserProfileConfigStore>();
+
 			For<IResponse>()
 				.Use<ConsoleResponse>();
 

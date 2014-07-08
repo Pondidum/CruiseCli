@@ -6,23 +6,16 @@ namespace Cruise.Storage
 {
 	public class GetStorageModelQuery
 	{
-		private readonly IFileSystem _fileSystem;
-		private readonly string _path;
+		private readonly IConfigStore _configuration;
 
-		public GetStorageModelQuery(IFileSystem fileSystem)
+		public GetStorageModelQuery(IConfigStore configuration)
 		{
-			_fileSystem = fileSystem;
-			_path = Path.Combine(_fileSystem.HomePath, ApplicationSettings.Filename);
+			_configuration = configuration;
 		}
 
 		public IStorageModel Execute()
 		{
-			if (_fileSystem.FileExists(_path) == false)
-			{
-				return new StorageModel(new StorageModelMemento());
-			}
-
-			using (var stream = _fileSystem.ReadFile(_path))
+			using (var stream = _configuration.Read())
 			{
 				using (var sr = new StreamReader(stream))
 				{
