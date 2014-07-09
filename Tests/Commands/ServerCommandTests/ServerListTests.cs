@@ -54,5 +54,17 @@ namespace Tests.Commands.ServerCommandTests
 			_response.Received().Write(Arg.Any<string>(), "first");
 			_response.Received().Write(Arg.Any<string>(), "second");
 		}
+
+		[Fact]
+		public void When_the_verbose_flag_is_set()
+		{
+			_storage.Insert(new ServerDetails("first", new Uri("http://f.example.com")));
+			_storage.Insert(new ServerDetails("second", new Uri("http://s.example.com")));
+
+			_command.Execute(new ServerInputModel {VerboseFlag = true});
+
+			_response.Received().Write(Arg.Any<string>(), "first", new Uri("http://f.example.com"));
+			_response.Received().Write(Arg.Any<string>(), "second", new Uri("http://s.example.com"));
+		}
 	}
 }

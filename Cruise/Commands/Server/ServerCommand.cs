@@ -54,7 +54,14 @@ namespace Cruise.Commands.Server
 			}
 			else
 			{
-				_storage.Servers.Each(server => _response.Write("    {0}", server.Name));
+				if (input.VerboseFlag)
+				{
+					_storage.Servers.Each(server => _response.Write("    {0,-12}{1}", server.Name, server.Url));
+				}
+				else
+				{
+					_storage.Servers.Each(server => _response.Write("    {0}", server.Name));
+				}
 			}
 
 			return true;
