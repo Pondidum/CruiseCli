@@ -10,11 +10,11 @@ namespace Tests.Commands.ServerCommandTests
 		{
 			Succeeds("server");
 		}
-
+		
 		[Fact]
-		public void Calling_with_list_succeeds()
+		public void Calling_with_no_args_and_verbose_flag_succeeds()
 		{
-			Succeeds("server", "list");
+			Succeeds("server", "--verbose");
 		}
 
 		[Fact]
@@ -24,9 +24,21 @@ namespace Tests.Commands.ServerCommandTests
 		}
 
 		[Fact]
+		public void Calling_with_add_name_and_url_and_verbose_flag_succeeds()
+		{
+			Succeeds("server", "--add", "--verbose", "local", "http://localhost:21234/CruiseManager.rem");
+		}
+
+		[Fact]
 		public void Calling_with_remove_and_name_succeeds()
 		{
 			Succeeds("server", "--remove", "local");
+		}
+
+		[Fact]
+		public void Calling_with_remove_and_name_and_verbose_flag_succeeds()
+		{
+			Succeeds("server", "--remove", "--verbose", "local");
 		}
 
 

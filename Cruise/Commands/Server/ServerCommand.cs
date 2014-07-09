@@ -20,15 +20,15 @@ namespace Cruise.Commands.Server
 			
 			Usage("Lists all registered servers")
 				.Arguments()
-				.ValidFlags();
+				.ValidFlags(f => f.VerboseFlag);
 
 			Usage("Adds a server.")
 				.Arguments(a => a.Name, a => a.Url)
-				.ValidFlags(a => a.AddFlag);
+				.ValidFlags(f => f.AddFlag, f => f.VerboseFlag);
 
 			Usage("Removes a server.")
 				.Arguments(a => a.Name)
-				.ValidFlags(a => a.RemoveFlag);
+				.ValidFlags(f => f.RemoveFlag, f => f.VerboseFlag);
 		}
 
 		public override bool Execute(ServerInputModel input)

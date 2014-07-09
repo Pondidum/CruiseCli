@@ -4,6 +4,7 @@
 	{
 		public bool AddFlag { get; set; }
 		public bool RemoveFlag { get; set; }
+		public bool VerboseFlag { get; set; }
 
 		public string Name { get; set; }
 		public string Url { get; set; }
