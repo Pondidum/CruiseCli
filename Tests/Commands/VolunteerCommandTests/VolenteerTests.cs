@@ -3,6 +3,7 @@ using Cruise.Commands.Volunteer;
 using Cruise.Storage;
 using Cruise.Transport;
 using NSubstitute;
+using Should;
 using Xunit;
 
 namespace Tests.Commands.VolunteerCommandTests
@@ -42,13 +43,32 @@ namespace Tests.Commands.VolunteerCommandTests
 		[Fact]
 		public void When_no_project_name_is_supplied()
 		{
-			
+			var input = new VolunteerInputModel();
+
+			var result = _command.Execute(input);
+
+			result.ShouldBeFalse();
+			_transport
+				.DidNotReceive()
+				.VolunteerToFixProject(Arg.Any<IServerDetails>(), Arg.Any<string>(), Arg.Any<string>());
 		}
 
 		[Fact]
 		public void When_just_a_server_name_is_supplied()
 		{
-			
+			var input = new VolunteerInputModel { Project = "Primary/" };
+
+			_command.Execute(input);
+
+			_transport
+				.DidNotReceive()
+				.VolunteerToFixProject(Arg.Any<IServerDetails>(), Arg.Any<string>(), Arg.Any<string>());
+
+			_writer.Log.ShouldEqual(new[]
+			{
+				"Error, you must specify a Project name.",
+				""
+			});
 		}
 
 		[Fact]

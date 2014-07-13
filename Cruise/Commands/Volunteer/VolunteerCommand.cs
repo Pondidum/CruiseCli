@@ -23,7 +23,17 @@ namespace Cruise.Commands.Volunteer
 
 		public override bool Execute(VolunteerInputModel input)
 		{
-			throw new System.NotImplementedException();
+			var spec = new ProjectNameParser().Parse(input.Project);
+
+			if (spec.IsBlank || spec.HasProject == false)
+			{
+				_response.Write("Error, you must specify a Project name.");
+				_response.Write("");
+
+				return false;
+			}
+
+			return false;
 		}
 	}
 }
