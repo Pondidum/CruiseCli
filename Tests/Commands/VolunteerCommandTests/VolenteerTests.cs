@@ -1,21 +1,21 @@
 ﻿using System;
-using Cruise.Commands.Volenteer;
+using Cruise.Commands.Volunteer;
 using Cruise.Storage;
 using Cruise.Transport;
 using NSubstitute;
 using Xunit;
 
-namespace Tests.Commands.VolenteerCommandTests
+namespace Tests.Commands.VolunteerCommandTests
 {
-	public class VolenteerTests : CommandTestBase
+	public class VolunteerTests : CommandTestBase
 	{
 		private readonly ITransportModel _transport;
 		private readonly LogResponse _writer;
 		private readonly IServerDetails _primaryServer;
 		private readonly IServerDetails _secondaryServer;
-		private readonly VolenteerCommand _command;
+		private readonly VolunteerCommand _command;
 
-		public VolenteerTests()
+		public VolunteerTests()
 		{
 			_writer = new LogResponse();
 
@@ -36,7 +36,7 @@ namespace Tests.Commands.VolenteerCommandTests
 				.GetProjects(_secondaryServer)
 				.Returns(new[] { OtherProject });
 
-			_command = new VolenteerCommand(_writer, storage, _transport);
+			_command = new VolunteerCommand(_writer, storage, _transport);
 		}
 
 		[Fact]

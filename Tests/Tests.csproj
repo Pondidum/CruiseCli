@@ -65,7 +65,8 @@
     <Compile Include="Commands\CommandTestBase.cs" />
     <Compile Include="Commands\StatusCommandTests\StatusTests.cs" />
     <Compile Include="Commands\StatusCommandTests\StatusWithServerProjectArgument.cs" />
-    <Compile Include="Commands\VolenteerCommandTests\VolenteerCommandUsageTests.cs" />
+    <Compile Include="Commands\VolunteerCommandTests\VolunteerCommandUsageTests.cs" />
+    <Compile Include="Commands\VolunteerCommandTests\VolenteerTests.cs" />
     <Compile Include="FactDebuggerOnlyAttribute.cs" />
     <Compile Include="FakeStorageModel.cs" />
     <Compile Include="InMemoryConfigStore.cs" />
