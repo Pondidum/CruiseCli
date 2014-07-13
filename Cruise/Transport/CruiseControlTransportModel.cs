@@ -46,5 +46,13 @@ namespace Cruise.Transport
 			_clients[server.Url]
 				.ForceBuild(projectName);
 		}
+
+		public void VolunteerToFixProject(IServerDetails server, string projectName, string userName)
+		{
+			var message = new Message(string.Format("{0} is fixing the build.", userName));
+
+			_clients[server.Url]
+				.SendMessage(projectName, message);
+		}
 	}
 }
