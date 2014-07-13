@@ -109,19 +109,49 @@ namespace Tests.Commands.VolunteerCommandTests
 		[Fact]
 		public void When_just_a_project_name_is_supplied_and_it_does_not_exist()
 		{
+			var input = new VolunteerInputModel { Project = "Some Project" };
 
+			_command.Execute(input);
+
+			_transport
+				.DidNotReceive()
+				.VolunteerToFixProject(Arg.Any<IServerDetails>(), Arg.Any<string>(), Arg.Any<string>());
+
+			_writer.Log.ShouldEqual(new[]
+			{
+				"Error, unable to find project 'Some Project'.",
+				""
+			});
 		}
 
 		[Fact]
 		public void When_a_project_and_server_name_is_supplied_and_it_doesnt_exist()
 		{
+			var input = new VolunteerInputModel { Project = "Primary/Some Project" };
 
+			_command.Execute(input);
+
+			_transport
+				.DidNotReceive()
+				.VolunteerToFixProject(Arg.Any<IServerDetails>(), Arg.Any<string>(), Arg.Any<string>());
+
+			_writer.Log.ShouldEqual(new[]
+			{
+				"Error, unable to find project 'Primary/Some Project'.",
+				""
+			});
 		}
 
 		[Fact]
 		public void When_a_project_and_server_name_is_supplied_and_it_exists()
 		{
-			
+			var input = new VolunteerInputModel { Project = "Primary/Test Project" };
+
+			_command.Execute(input);
+
+			_transport
+				.Received()
+				.VolunteerToFixProject(_primaryServer, "Test Project", Environment.UserName);
 		}
 	}
 }

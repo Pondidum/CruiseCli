@@ -37,12 +37,35 @@ namespace Cruise.Commands.Volunteer
 				return false;
 			}
 
+			if (spec.HasServer && spec.HasProject)
+			{
+				var projects = _transport.GetProjects(_storage.GetServerByName(spec.Server));
+
+				if (projects.Any(project => project.Name.EqualsIgnoreCase(spec.Project)))
+				{
+					_transport.VolunteerToFixProject(_storage.GetServerByName(spec.Server), spec.Project, Environment.UserName);
+				}
+				else
+				{
+					_response.Write("Error, unable to find project '{0}'.", spec);
+					_response.Write("");
+					return false;
+				}
+			}
+
 			var serverDetails = _storage
 				.Servers
 				.Where(server => _transport
 					.GetProjects(server)
 					.Any(p => p.Name.EqualsIgnoreCase(spec.Project)))
 				.ToList();
+
+			if (serverDetails.Any() == false)
+			{
+				_response.Write("Error, unable to find project '{0}'.", spec.Project);
+				_response.Write("");
+				return false;
+			}
 
 			if (serverDetails.Count > 1)
 			{
