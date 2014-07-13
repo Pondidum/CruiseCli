@@ -1,6 +1,10 @@
-﻿using Cruise.Infrastructure;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Cruise.Infrastructure;
 using Cruise.Storage;
 using Cruise.Transport;
+using FubuCore;
 using FubuCore.CommandLine;
 
 namespace Cruise.Commands.Volunteer
@@ -32,6 +36,28 @@ namespace Cruise.Commands.Volunteer
 
 				return false;
 			}
+
+			var serverDetails = _storage
+				.Servers
+				.Where(server => _transport
+					.GetProjects(server)
+					.Any(p => p.Name.EqualsIgnoreCase(spec.Project)))
+				.ToList();
+
+			if (serverDetails.Count > 1)
+			{
+				_response.Write("Error, ambiguous Project name.");
+				_response.Write("Did you mean:");
+
+				serverDetails
+					.Select(detail => new ProjectName(detail.Name, spec.Project))
+					.Each(detail => _response.Write("    {0}", detail));
+				_response.Write("");
+
+				return false;
+			}
+
+			_transport.VolunteerToFixProject(serverDetails.First(), spec.Project, Environment.UserName);
 
 			return false;
 		}

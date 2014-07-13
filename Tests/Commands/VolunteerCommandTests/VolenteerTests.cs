@@ -74,12 +74,35 @@ namespace Tests.Commands.VolunteerCommandTests
 		[Fact]
 		public void When_just_a_project_name_is_supplied_and_it_is_unique()
 		{
+			var input = new VolunteerInputModel { Project = "Test Project" };
+
+			_command.Execute(input);
+
+			_transport
+				.Received()
+				.VolunteerToFixProject(_primaryServer, "Test Project", Environment.UserName);
 
 		}
 
 		[Fact]
 		public void When_just_a_project_name_is_supplied_and_it_is_not_unique()
 		{
+			var input = new VolunteerInputModel { Project = "Other Project" };
+
+			_command.Execute(input);
+
+			_transport
+				.DidNotReceive()
+				.VolunteerToFixProject(Arg.Any<IServerDetails>(), Arg.Any<string>(), Arg.Any<string>());
+
+			_writer.Log.ShouldEqual(new[]
+			{
+				"Error, ambiguous Project name.",
+				"Did you mean:",
+				"    Primary/Other Project",
+				"    Secondary/Other Project",
+				"",
+			});
 
 		}
 
