@@ -60,6 +60,8 @@
     <Compile Include="Commands\Server\ServerInputModel.cs" />
     <Compile Include="Commands\Status\StatusCommand.cs" />
     <Compile Include="Commands\Status\StatusInputModel.cs" />
+    <Compile Include="Commands\Volenteer\VolenteerCommand.cs" />
+    <Compile Include="Commands\Volenteer\VolenteerInputModel.cs" />
     <Compile Include="CruiseRegistry.cs" />
     <Compile Include="Infrastructure\ConsoleResponse.cs" />
     <Compile Include="Infrastructure\UserProfileConfigStore.cs" />
