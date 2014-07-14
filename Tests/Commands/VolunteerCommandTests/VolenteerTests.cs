@@ -1,4 +1,5 @@
 ﻿using System;
+using Cruise;
 using Cruise.Commands.Volunteer;
 using Cruise.Storage;
 using Cruise.Transport;
@@ -37,7 +38,8 @@ namespace Tests.Commands.VolunteerCommandTests
 				.GetProjects(_secondaryServer)
 				.Returns(new[] { OtherProject });
 
-			_command = new VolunteerCommand(_writer, storage, _transport);
+			var action = new SingleProjectAction(_writer, storage, _transport);
+			_command = new VolunteerCommand(_transport, action);
 		}
 
 		[Fact]
