@@ -11,7 +11,7 @@ namespace Tests.Commands.ServerCommandTests
 {
 	public class ServerListTests
 	{
-		private readonly ServerCommand _command;
+		private readonly ListServerCommandAction _command;
 		private readonly FakeStorageModel _storage;
 		private readonly IResponse _response;
 		private readonly ISaveStorageModelCommand _save;
@@ -22,7 +22,7 @@ namespace Tests.Commands.ServerCommandTests
 			_storage = new FakeStorageModel();
 			_response = Substitute.For<IResponse>();
 
-			_command = new ServerCommand(_save, _storage, _response);
+			_command = new ListServerCommandAction(_storage, _response);
 		}
 
 		[Fact]

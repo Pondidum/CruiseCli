@@ -8,18 +8,16 @@ namespace Tests.Commands.ServerCommandTests
 {
 	public class ServerRemoveTests
 	{
-		private readonly ServerCommand _command;
+		private readonly RemoveServerCommandAction _command;
 		private readonly IStorageModel _storage;
-		private readonly IResponse _response;
 		private readonly ISaveStorageModelCommand _save;
 
 		public ServerRemoveTests()
 		{
 			_save = Substitute.For<ISaveStorageModelCommand>();
 			_storage = Substitute.For<IStorageModel>();
-			_response = Substitute.For<IResponse>();
 
-			_command = new ServerCommand(_save, _storage, _response);
+			_command = new RemoveServerCommandAction(_save, _storage);
 		}
 
 		[Fact]
