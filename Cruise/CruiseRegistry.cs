@@ -1,3 +1,4 @@
+using Cruise.Commands.Server;
 using Cruise.Infrastructure;
 using Cruise.Storage;
 using Cruise.Transport;
@@ -14,7 +15,10 @@ namespace Cruise
 			{
 				a.TheCallingAssembly();
 				a.WithDefaultConventions();
+
+				a.AddAllTypesOf<IServerCommandAction>();
 			});
+
 
 			For<IStorageModel>()
 				.Use(x => x.GetInstance<GetStorageModelQuery>().Execute())
