@@ -1,24 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Cruise.Infrastructure;
-using Cruise.Storage;
-using Cruise.Transport;
-using FubuCore;
+﻿using Cruise.Transport;
 using FubuCore.CommandLine;
 
 namespace Cruise.Commands.Run
 {
 	public class RunCommand : FubuCommand<RunInputModel>
 	{
-		private readonly IResponse _writer;
-		private readonly IStorageModel _storage;
-		private readonly ITransportModel _transport;
+		private readonly SingleProjectAction _singleAction;
 
-		public RunCommand(IResponse writer, IStorageModel storage,  ITransportModel transport)
+		public RunCommand(ITransportModel transport, SingleProjectAction singleAction)
 		{
-			_writer = writer;
-			_storage = storage;
-			_transport = transport;
+			_singleAction = singleAction;
+			singleAction.Action = transport.TriggerProject;
 
 			Usage("Forces a build for the given server/project")
 				.Arguments(a => a.Project);
@@ -26,53 +18,7 @@ namespace Cruise.Commands.Run
 
 		public override bool Execute(RunInputModel input)
 		{
-			var projectSpec = new ProjectNameParser().Parse(input.Project);
-			
-			if (projectSpec.IsBlank || projectSpec.HasProject == false)
-			{
-				_writer.Write("Error, you must specify a Project name.");
-				_writer.Write("");
-
-				return false;
-			}
-
-			var allServers = _storage.Servers;
-
-			if (projectSpec.HasServer)
-			{
-				var server = _storage.GetServerByName(projectSpec.Server);
-				allServers = new[] { server };
-			}
-
-			var serverDetails = allServers
-				.Where(server => _transport
-					.GetProjects(server)
-					.Any(p => p.Name.EqualsIgnoreCase(projectSpec.Project)))
-				.ToList();
-
-			if (serverDetails.Any() == false)
-			{
-				_writer.Write("Error, unable to find project '{0}'.", projectSpec);
-				_writer.Write("");
-				return false;
-			}
-
-			if (serverDetails.Count > 1)
-			{
-				_writer.Write("Error, ambiguous Project name.");
-				_writer.Write("Did you mean:");
-
-				serverDetails
-					.Select(detail => new ProjectName(detail.Name, projectSpec.Project))
-					.Each(detail => _writer.Write("    {0}", detail));
-				_writer.Write("");
-
-				return false;
-			}
-
-			_transport.TriggerProject(serverDetails.First(), projectSpec.Project);
-
-			return true;
+			return _singleAction.Execute(new ProjectNameParser().Parse(input.Project));
 		}
 	}
 }

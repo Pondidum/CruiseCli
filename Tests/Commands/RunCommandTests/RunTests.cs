@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Cruise;
 using Cruise.Commands.Run;
 using Cruise.Storage;
 using Cruise.Transport;
@@ -38,7 +39,9 @@ namespace Tests.Commands.RunCommandTests
 				.GetProjects(_secondaryServer)
 				.Returns(new[] { OtherProject });
 
-			_command = new RunCommand(_writer, storage, _transport);
+			var action = new SingleProjectAction(_writer, storage, _transport);
+
+			_command = new RunCommand(_transport, action);
 		}
 
 		[Fact]
