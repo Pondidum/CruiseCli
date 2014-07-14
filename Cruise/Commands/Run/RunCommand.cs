@@ -36,24 +36,15 @@ namespace Cruise.Commands.Run
 				return false;
 			}
 
-			if (projectSpec.HasServer && projectSpec.HasProject)
-			{
-				var projects = _transport.GetProjects(_storage.GetServerByName(projectSpec.Server));
+			var allServers = _storage.Servers;
 
-				if (projects.Any(project => project.Name.EqualsIgnoreCase(projectSpec.Project)))
-				{
-					_transport.TriggerProject(_storage.GetServerByName(projectSpec.Server), projectSpec.Project);
-				}
-				else
-				{
-					_writer.Write("Error, unable to find project '{0}'.", projectSpec);
-					_writer.Write("");
-					return false;
-				}
+			if (projectSpec.HasServer)
+			{
+				var server = _storage.GetServerByName(projectSpec.Server);
+				allServers = new[] { server };
 			}
 
-			var serverDetails = _storage
-				.Servers
+			var serverDetails = allServers
 				.Where(server => _transport
 					.GetProjects(server)
 					.Any(p => p.Name.EqualsIgnoreCase(projectSpec.Project)))
@@ -61,7 +52,7 @@ namespace Cruise.Commands.Run
 
 			if (serverDetails.Any() == false)
 			{
-				_writer.Write("Error, unable to find project '{0}'.", projectSpec.Project);
+				_writer.Write("Error, unable to find project '{0}'.", projectSpec);
 				_writer.Write("");
 				return false;
 			}
