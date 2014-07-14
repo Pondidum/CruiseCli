@@ -56,10 +56,10 @@
     <Compile Include="CommandFactoryBuilder.cs" />
     <Compile Include="Commands\Run\RunCommand.cs" />
     <Compile Include="Commands\Run\RunInputModel.cs" />
-    <Compile Include="Commands\Server\AddServerCommandAction.cs" />
+    <Compile Include="Commands\Server\Actions\AddServerCommandAction.cs" />
     <Compile Include="Commands\Server\IServerCommandAction.cs" />
-    <Compile Include="Commands\Server\ListServerCommandAction.cs" />
-    <Compile Include="Commands\Server\RemoveServerCommandAction.cs" />
+    <Compile Include="Commands\Server\Actions\ListServerCommandAction.cs" />
+    <Compile Include="Commands\Server\Actions\RemoveServerCommandAction.cs" />
     <Compile Include="Commands\Server\ServerCommand.cs" />
     <Compile Include="Commands\Server\ServerCommandActionFactory.cs" />
     <Compile Include="Commands\Server\ServerInputModel.cs" />
