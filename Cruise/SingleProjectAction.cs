@@ -38,15 +38,14 @@ namespace Cruise
 
 			if (spec.HasServer)
 			{
-				var server = _storage.GetServerByName(spec.Server);
-				allServers = new[] { server };
+				allServers = new[] { _storage.GetServerByName(spec.Server) };
 			}
 
 			var serverDetails = allServers
-				.Where(server => _transport
-					.GetProjects(server)
-					.Any(p => p.Name.EqualsIgnoreCase(spec.Project)))
+				.ToDictionary(s => s, s => _transport.GetProjects(s))
+				.Where(pair => pair.Value.Any(p => p.Name.EqualsIgnoreCase(spec.Project)))
 				.ToList();
+				
 
 			if (serverDetails.Any() == false)
 			{
@@ -61,14 +60,17 @@ namespace Cruise
 				_writer.Write("Did you mean:");
 
 				serverDetails
-					.Select(detail => new ProjectName(detail.Name, spec.Project))
+					.Select(detail => new ProjectName(detail.Key.Name, spec.Project))
 					.Each(detail => _writer.Write("    {0}", detail));
 				_writer.Write("");
 
 				return false;
 			}
 
-			Action.Invoke(serverDetails.First(), spec.Project);
+			var server = serverDetails.First();
+			var project = server.Value.First();
+
+			Action.Invoke(server.Key, project.Name);
 
 			return true;
 		}
