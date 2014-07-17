@@ -8,13 +8,13 @@ namespace Cruise.Commands.Server
 	{
 		private readonly ISaveStorageModelCommand _saveCommand;
 		private readonly IStorageModel _storage;
-		private readonly IResponseWriter _response;
+		private readonly IResponseWriter _writer;
 
-		public AddServerCommandAction(ISaveStorageModelCommand saveCommand, IStorageModel storage, IResponseWriter response)
+		public AddServerCommandAction(ISaveStorageModelCommand saveCommand, IStorageModel storage, IResponseWriter writer)
 		{
 			_saveCommand = saveCommand;
 			_storage = storage;
-			_response = response;
+			_writer = writer;
 		}
 
 		public bool CanHandle(ServerInputModel input)
@@ -26,7 +26,7 @@ namespace Cruise.Commands.Server
 		{
 			if (_storage.IsRegistered(input.Name))
 			{
-				_response.Write("Server {0} ({1}) is already registered.", input.Name, input.Url);
+				_writer.Write("Server {0} ({1}) is already registered.", input.Name, input.Url);
 				return false;
 			}
 

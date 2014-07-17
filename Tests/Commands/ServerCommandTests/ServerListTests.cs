@@ -13,16 +13,16 @@ namespace Tests.Commands.ServerCommandTests
 	{
 		private readonly ListServerCommandAction _command;
 		private readonly FakeStorageModel _storage;
-		private readonly IResponseWriter _response;
+		private readonly IResponseWriter _writer;
 		private readonly ISaveStorageModelCommand _save;
 
 		public ServerListTests()
 		{
 			_save = Substitute.For<ISaveStorageModelCommand>();
 			_storage = new FakeStorageModel();
-			_response = Substitute.For<IResponseWriter>();
+			_writer = Substitute.For<IResponseWriter>();
 
-			_command = new ListServerCommandAction(_storage, _response);
+			_command = new ListServerCommandAction(_storage, _writer);
 		}
 
 		[Fact]
@@ -30,7 +30,7 @@ namespace Tests.Commands.ServerCommandTests
 		{
 			_command.Execute(new ServerInputModel());
 
-			_response.DidNotReceive().Write(Arg.Any<string>(), Arg.Any<object[]>());
+			_writer.DidNotReceive().Write(Arg.Any<string>(), Arg.Any<object[]>());
 		}
 
 		[Fact]
@@ -40,7 +40,7 @@ namespace Tests.Commands.ServerCommandTests
 
 			_command.Execute(new ServerInputModel());
 
-			_response.Received().Write(Arg.Any<string>(), "test");
+			_writer.Received().Write(Arg.Any<string>(), "test");
 		}
 
 		[Fact]
@@ -51,8 +51,8 @@ namespace Tests.Commands.ServerCommandTests
 
 			_command.Execute(new ServerInputModel());
 
-			_response.Received().Write(Arg.Any<string>(), "first");
-			_response.Received().Write(Arg.Any<string>(), "second");
+			_writer.Received().Write(Arg.Any<string>(), "first");
+			_writer.Received().Write(Arg.Any<string>(), "second");
 		}
 
 		[Fact]
@@ -63,8 +63,8 @@ namespace Tests.Commands.ServerCommandTests
 
 			_command.Execute(new ServerInputModel {VerboseFlag = true});
 
-			_response.Received().Write(Arg.Any<string>(), "first", new Uri("http://f.example.com"));
-			_response.Received().Write(Arg.Any<string>(), "second", new Uri("http://s.example.com"));
+			_writer.Received().Write(Arg.Any<string>(), "first", new Uri("http://f.example.com"));
+			_writer.Received().Write(Arg.Any<string>(), "second", new Uri("http://s.example.com"));
 		}
 	}
 }

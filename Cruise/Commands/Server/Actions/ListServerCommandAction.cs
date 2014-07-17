@@ -7,12 +7,12 @@ namespace Cruise.Commands.Server
 	public class ListServerCommandAction : IServerCommandAction
 	{
 		private readonly IStorageModel _storage;
-		private readonly IResponseWriter _response;
+		private readonly IResponseWriter _writer;
 
-		public ListServerCommandAction(IStorageModel storage, IResponseWriter response)
+		public ListServerCommandAction(IStorageModel storage, IResponseWriter writer)
 		{
 			_storage = storage;
-			_response = response;
+			_writer = writer;
 		}
 
 	
@@ -25,11 +25,11 @@ namespace Cruise.Commands.Server
 		{
 			if (input.VerboseFlag)
 			{
-				_storage.Servers.Each(server => _response.Write("    {0,-12}{1}", server.Name, server.Url));
+				_storage.Servers.Each(server => _writer.Write("    {0,-12}{1}", server.Name, server.Url));
 			}
 			else
 			{
-				_storage.Servers.Each(server => _response.Write("    {0}", server.Name));
+				_storage.Servers.Each(server => _writer.Write("    {0}", server.Name));
 			}
 
 			return true;
