@@ -13,9 +13,9 @@ namespace Cruise.Commands.Status
 	{
 		private readonly IStorageModel _storage;
 		private readonly ITransportModel _transport;
-		private readonly IResponse _writer;
+		private readonly IResponseWriter _writer;
 
-		public StatusCommand(IResponse writer, IStorageModel storage, ITransportModel transport)
+		public StatusCommand(IResponseWriter writer, IStorageModel storage, ITransportModel transport)
 		{
 			_storage = storage;
 			_transport = transport;

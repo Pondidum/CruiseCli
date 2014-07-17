@@ -1,6 +1,6 @@
 ﻿namespace Cruise.Infrastructure
 {
-	public interface IResponse
+	public interface IResponseWriter
 	{
 		void Write(string format, params object[] args);
 	}

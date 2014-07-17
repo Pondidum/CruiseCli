@@ -8,9 +8,9 @@ namespace Cruise.Commands.Server
 	{
 		private readonly ISaveStorageModelCommand _saveCommand;
 		private readonly IStorageModel _storage;
-		private readonly IResponse _response;
+		private readonly IResponseWriter _response;
 
-		public AddServerCommandAction(ISaveStorageModelCommand saveCommand, IStorageModel storage, IResponse response)
+		public AddServerCommandAction(ISaveStorageModelCommand saveCommand, IStorageModel storage, IResponseWriter response)
 		{
 			_saveCommand = saveCommand;
 			_storage = storage;

@@ -7,9 +7,9 @@ namespace Cruise.Commands.Server
 	public class ListServerCommandAction : IServerCommandAction
 	{
 		private readonly IStorageModel _storage;
-		private readonly IResponse _response;
+		private readonly IResponseWriter _response;
 
-		public ListServerCommandAction(IStorageModel storage, IResponse response)
+		public ListServerCommandAction(IStorageModel storage, IResponseWriter response)
 		{
 			_storage = storage;
 			_response = response;

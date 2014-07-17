@@ -27,7 +27,7 @@ namespace Cruise
 			For<IConfigStore>()
 				.Use<UserProfileConfigStore>();
 
-			For<IResponse>()
+			For<IResponseWriter>()
 				.Use<ConsoleResponse>();
 
 			For<ITransportModel>()

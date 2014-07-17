@@ -2,7 +2,7 @@
 
 namespace Cruise.Infrastructure
 {
-	public class ConsoleResponse : IResponse
+	public class ConsoleResponse : IResponseWriter
 	{
 		public void Write(string format, params object[] args)
 		{

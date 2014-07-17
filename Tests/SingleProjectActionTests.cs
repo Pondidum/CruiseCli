@@ -19,7 +19,7 @@ namespace Tests
 			var localServer = new ServerDetails("local", new Uri("tcp://local.server:21234/CruiseManager.rem"));
 			var testProject = NewProject("Test", "Good");
 
-			var writer = Substitute.For<IResponse>();
+			var writer = Substitute.For<IResponseWriter>();
 
 			var storage = new FakeStorageModel();
 			storage.Insert(localServer);

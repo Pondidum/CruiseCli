@@ -3,7 +3,7 @@ using Cruise.Infrastructure;
 
 namespace Tests
 {
-	public class LogResponse : IResponse
+	public class LogResponse : IResponseWriter
 	{
 		public IEnumerable<string> Log { get { return _log; }}
 

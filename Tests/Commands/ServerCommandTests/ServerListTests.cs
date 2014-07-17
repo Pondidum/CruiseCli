@@ -13,14 +13,14 @@ namespace Tests.Commands.ServerCommandTests
 	{
 		private readonly ListServerCommandAction _command;
 		private readonly FakeStorageModel _storage;
-		private readonly IResponse _response;
+		private readonly IResponseWriter _response;
 		private readonly ISaveStorageModelCommand _save;
 
 		public ServerListTests()
 		{
 			_save = Substitute.For<ISaveStorageModelCommand>();
 			_storage = new FakeStorageModel();
-			_response = Substitute.For<IResponse>();
+			_response = Substitute.For<IResponseWriter>();
 
 			_command = new ListServerCommandAction(_storage, _response);
 		}
