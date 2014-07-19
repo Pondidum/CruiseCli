@@ -31,7 +31,7 @@ namespace Tests.Commands.ServerCommandTests
 		{
 			_command.Execute(new ServerInputModel());
 
-			_writer.Log.ShouldBeEmpty();
+			_writer.Last<ListServerViewModel>().Servers.ShouldBeEmpty();
 		}
 
 		[Fact]
@@ -41,7 +41,7 @@ namespace Tests.Commands.ServerCommandTests
 
 			_command.Execute(new ServerInputModel());
 
-			_writer.Log.ShouldContain("    test");
+			_writer.Last<ListServerViewModel>().Servers.Count.ShouldEqual(1);
 		}
 
 		[Fact]
@@ -52,8 +52,10 @@ namespace Tests.Commands.ServerCommandTests
 
 			_command.Execute(new ServerInputModel());
 
-			_writer.Log.ShouldContain("    first");
-			_writer.Log.ShouldContain("    second");
+			var names = _writer.Last<ListServerViewModel>().Servers.Select(s => s.Name).ToList();
+			
+			names.ShouldContain("first");
+			names.ShouldContain("second");
 		}
 
 		[Fact]
@@ -64,8 +66,10 @@ namespace Tests.Commands.ServerCommandTests
 
 			_command.Execute(new ServerInputModel {VerboseFlag = true});
 
-			_writer.Log.ShouldContain("    first       http://f.example.com/");
-			_writer.Log.ShouldContain("    second      http://s.example.com/");
+			var names = _writer.Last<ListServerViewModel>().Servers.Select(s => s.Name).ToList();
+
+			names.ShouldContain("first");
+			names.ShouldContain("second");
 		}
 	}
 }

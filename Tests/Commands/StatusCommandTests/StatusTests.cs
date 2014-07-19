@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Cruise.Commands.Server;
 using Cruise.Commands.Status;
 using Cruise.Infrastructure;
 using Cruise.Storage;
@@ -37,7 +38,8 @@ namespace Tests.Commands.StatusCommandTests
 			_command.Execute(new StatusInputModel());
 
 			_transport.DidNotReceive().GetProjects(Arg.Any<IServerDetails>());
-			_writer.Log.ShouldBeEmpty();
+			
+			_writer.Last<StatusViewModel>().Servers.ShouldBeEmpty();
 		}
 
 		[Fact]
@@ -48,11 +50,10 @@ namespace Tests.Commands.StatusCommandTests
 
 			_command.Execute(new StatusInputModel());
 
-			_writer.Log.ShouldEqual(new[]
-			{
-				"Test:",
-				""
-			});
+			var model = _writer.Last<StatusViewModel>();
+			
+			model.Servers.Count.ShouldEqual(1);
+			model.Servers.First().Value.ShouldBeEmpty();
 		}
 
 		[Fact]
@@ -66,12 +67,10 @@ namespace Tests.Commands.StatusCommandTests
 
 			_command.Execute(new StatusInputModel());
 
-			_writer.Log.ShouldEqual(new[]
-			{
-				"Test:",
-				"    Success     Test Project",
-				 ""
-			});
+			var model = _writer.Last<StatusViewModel>();
+
+			model.Servers.Count.ShouldEqual(1);
+			model.Servers.First().Value.Count.ShouldEqual(1);
 		}
 
 		[Fact]
@@ -85,15 +84,11 @@ namespace Tests.Commands.StatusCommandTests
 
 			_command.Execute(new StatusInputModel());
 
-			_writer.Log.ShouldEqual(new[]
-			{
-				"Second:",
-				"    Success     Test Project",
-				 "",
-				 "Test:",
-				"    Success     Test Project",
-				 ""
-			});
+			var model = _writer.Last<StatusViewModel>();
+
+			model.Servers.Count.ShouldEqual(2);
+			model.Servers.First().Value.Count.ShouldEqual(1);
+			model.Servers.Last().Value.Count.ShouldEqual(1);
 		}
 	}
 }

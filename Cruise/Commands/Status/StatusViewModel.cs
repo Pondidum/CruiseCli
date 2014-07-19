@@ -8,21 +8,21 @@ namespace Cruise.Commands.Status
 {
 	public class StatusViewModel
 	{
-		private readonly Dictionary<IServerDetails, List<IProject>> _servers;
+		public Dictionary<IServerDetails, List<IProject>> Servers { get; private set; }
 
 		public StatusViewModel()
 		{
-			_servers = new Dictionary<IServerDetails, List<IProject>>();
+			Servers = new Dictionary<IServerDetails, List<IProject>>();
 		}
 
 		public void Add(IServerDetails server, IEnumerable<IProject> projects)
 		{
-			if (_servers.ContainsKey(server) == false)
+			if (Servers.ContainsKey(server) == false)
 			{
-				_servers[server] = new List<IProject>();
+				Servers[server] = new List<IProject>();
 			}
 
-			var storedProjects = _servers[server];
+			var storedProjects = Servers[server];
 			var toAdd = projects.Except(storedProjects).ToList();
 
 			storedProjects.AddRange(toAdd);
@@ -32,7 +32,7 @@ namespace Cruise.Commands.Status
 		{
 			var sb = new StringBuilder();
 
-			var ordered = _servers
+			var ordered = Servers
 				.OrderBy(p => p.Key.Name)
 				.ToList();
 

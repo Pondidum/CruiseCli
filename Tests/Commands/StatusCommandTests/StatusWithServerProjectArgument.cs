@@ -46,12 +46,9 @@ namespace Tests.Commands.StatusCommandTests
 
 			_command.Execute(input);
 
-			_writer.Log.ShouldEqual(new[]
-			{
-				"Primary:", 
-				"    Success     Test Project", 
-				""
-			});
+			var model = _writer.Last<StatusViewModel>();
+
+			model.Servers.Count.ShouldEqual(1);
 		}
 
 		[Fact]
@@ -72,12 +69,9 @@ namespace Tests.Commands.StatusCommandTests
 
 			_command.Execute(input);
 
-			_writer.Log.ShouldEqual(new[]
-			{
-				"Primary:", 
-				"    Success     Test Project", 
-				""
-			});
+			var model = _writer.Last<StatusViewModel>();
+
+			model.Servers.Count.ShouldEqual(1);
 		}
 
 		[Fact]
@@ -98,15 +92,9 @@ namespace Tests.Commands.StatusCommandTests
 
 			_command.Execute(input);
 
-			_writer.Log.ShouldEqual(new[]
-			{
-				"Primary:", 
-				"    Success     Test Project", 
-				"",
-				"Secondary:", 
-				"    Success     Test Project", 
-				""
-			});
+			var model = _writer.Last<StatusViewModel>();
+
+			model.Servers.Count.ShouldEqual(2);
 		}
 
 		[Fact]
@@ -122,13 +110,10 @@ namespace Tests.Commands.StatusCommandTests
 				.Returns(new[] { TestProject });
 
 			_command.Execute(input);
+			
+			var model = _writer.Last<StatusViewModel>();
 
-			_writer.Log.ShouldEqual(new[]
-			{
-				"Primary:", 
-				"    Success     Test Project", 
-				""
-			});
+			model.Servers.Count.ShouldEqual(1);
 		}
 	}
 }

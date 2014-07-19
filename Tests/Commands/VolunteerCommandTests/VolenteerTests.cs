@@ -1,6 +1,7 @@
 ﻿using System;
 using Cruise;
 using Cruise.Commands.Volunteer;
+using Cruise.Models;
 using Cruise.Storage;
 using Cruise.Transport;
 using NSubstitute;
@@ -66,11 +67,9 @@ namespace Tests.Commands.VolunteerCommandTests
 				.DidNotReceive()
 				.VolunteerToFixProject(Arg.Any<IServerDetails>(), Arg.Any<string>(), Arg.Any<string>());
 
-			_writer.Log.ShouldEqual(new[]
-			{
-				"Error, you must specify a Project name.",
-				""
-			});
+
+			_writer.LastModel.ShouldBeType<ErrorMessageViewModel>();
+
 		}
 
 		[Fact]
@@ -83,7 +82,6 @@ namespace Tests.Commands.VolunteerCommandTests
 			_transport
 				.Received()
 				.VolunteerToFixProject(_primaryServer, "Test Project", Environment.UserName);
-
 		}
 
 		[Fact]
@@ -97,15 +95,7 @@ namespace Tests.Commands.VolunteerCommandTests
 				.DidNotReceive()
 				.VolunteerToFixProject(Arg.Any<IServerDetails>(), Arg.Any<string>(), Arg.Any<string>());
 
-			_writer.Log.ShouldEqual(new[]
-			{
-				"Error, ambiguous Project name.",
-				"Did you mean:",
-				"    Primary/Other Project",
-				"    Secondary/Other Project",
-				"",
-			});
-
+			_writer.LastModel.ShouldBeType<AmbiguousProjectNameViewModel>();
 		}
 
 		[Fact]
@@ -119,11 +109,7 @@ namespace Tests.Commands.VolunteerCommandTests
 				.DidNotReceive()
 				.VolunteerToFixProject(Arg.Any<IServerDetails>(), Arg.Any<string>(), Arg.Any<string>());
 
-			_writer.Log.ShouldEqual(new[]
-			{
-				"Error, unable to find project 'Some Project'.",
-				""
-			});
+			_writer.LastModel.ShouldBeType<MissingProjectViewModel>();
 		}
 
 		[Fact]
@@ -137,11 +123,7 @@ namespace Tests.Commands.VolunteerCommandTests
 				.DidNotReceive()
 				.VolunteerToFixProject(Arg.Any<IServerDetails>(), Arg.Any<string>(), Arg.Any<string>());
 
-			_writer.Log.ShouldEqual(new[]
-			{
-				"Error, unable to find project 'Primary/Some Project'.",
-				""
-			});
+			_writer.LastModel.ShouldBeType<MissingProjectViewModel>();
 		}
 
 		[Fact]

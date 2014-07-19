@@ -7,12 +7,12 @@ namespace Cruise.Commands.Server
 {
 	public class ListServerViewModel
 	{
-		private readonly List<IServerDetails> _servers;
+		public List<IServerDetails> Servers { get; private set; }
 		private readonly bool _verbose;
 
 		public ListServerViewModel(IEnumerable<IServerDetails> servers, bool verbose)
 		{
-			_servers = servers.ToList();
+			Servers = servers.ToList();
 			_verbose = verbose;
 		}
 
@@ -22,11 +22,11 @@ namespace Cruise.Commands.Server
 			
 			if (_verbose)
 			{
-				_servers.ForEach(server => sb.AppendFormat("    {0,-12}{1}", server.Name, server.Url).AppendLine());
+				Servers.ForEach(server => sb.AppendFormat("    {0,-12}{1}", server.Name, server.Url).AppendLine());
 			}
 			else
 			{
-				_servers.ForEach(server => sb.AppendFormat("    {0}", server.Name).AppendLine());
+				Servers.ForEach(server => sb.AppendFormat("    {0}", server.Name).AppendLine());
 			}
 
 			return sb.ToString();

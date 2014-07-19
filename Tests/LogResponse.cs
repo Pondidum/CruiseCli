@@ -1,22 +1,29 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Cruise.Infrastructure;
 
 namespace Tests
 {
 	public class LogResponse : IResponseWriter
 	{
-		public IEnumerable<string> Log { get { return _log; }}
+		public object LastModel { get { return _models.Last();  } }
+		public IEnumerable<object> Models { get { return _models; } }
 
-		private readonly List<string> _log;
+		private readonly List<object> _models;
 
 		public LogResponse()
 		{
-			_log = new List<string>();
+			_models = new List<object>();
+		}
+
+		public T Last<T>()
+		{
+			return _models.OfType<T>().Last();
 		}
 
 		public void Write(object model)
 		{
-			_log.Add(model.ToString());
+			_models.Add(model);
 		}
 	}
 }
