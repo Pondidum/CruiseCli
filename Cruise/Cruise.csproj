@@ -57,6 +57,7 @@
     <Compile Include="Commands\Run\RunCommand.cs" />
     <Compile Include="Commands\Run\RunInputModel.cs" />
     <Compile Include="Commands\Server\Actions\ListServerViewModel.cs" />
+    <Compile Include="Commands\Server\Actions\ServerAlreadyRegisteredViewModel.cs" />
     <Compile Include="Commands\Status\StatusViewModel.cs" />
     <Compile Include="Models\GenericModel.cs" />
     <Compile Include="SingleProjectAction.cs" />

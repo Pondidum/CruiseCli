@@ -27,7 +27,7 @@ namespace Cruise.Commands.Server
 		{
 			if (_storage.IsRegistered(input.Name))
 			{
-				_writer.Write(new GenericModel("Server {0} ({1}) is already registered.", input.Name, input.Url));
+				_writer.Write(new ServerAlreadyRegisteredViewModel(input.Name, input.Url));
 				return false;
 			}
 
