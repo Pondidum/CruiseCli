@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Cruise.Infrastructure;
-using Cruise.Models;
 using Cruise.Storage;
 using Cruise.Transport;
 using FubuCore;
@@ -34,11 +32,11 @@ namespace Cruise.Commands.Status
 		{
 			var projectSpec = new ProjectNameParser().Parse(input.Project);
 
-			var toDisplay = new Dictionary<string, IEnumerable<IProject>>();
+			var toDisplay = new Dictionary<IServerDetails, IEnumerable<IProject>>();
 
 			if (projectSpec.IsBlank)
 			{
-				toDisplay =_storage.Servers.ToDictionary(s => s.Name, s => _transport.GetProjects(s));
+				toDisplay = _storage.Servers.ToDictionary(s => s, s => _transport.GetProjects(s));
 			}
 			else if (projectSpec.HasServer && projectSpec.HasProject)
 			{
@@ -47,19 +45,19 @@ namespace Cruise.Commands.Status
 
 				if (project != null)
 				{
-					toDisplay.Add(projectSpec.Server, new[] { project });
+					toDisplay.Add(_storage.GetServerByName(projectSpec.Server), new[] { project });
 				}
 			}
 			else if (projectSpec.HasServer)
 			{
-				toDisplay.Add(projectSpec.Server, _transport.GetProjects(_storage.GetServerByName(projectSpec.Server)));
+				toDisplay.Add(_storage.GetServerByName(projectSpec.Server), _transport.GetProjects(_storage.GetServerByName(projectSpec.Server)));
 			}
 			else if (projectSpec.HasProject)
 			{
 				var projects = _storage
 					.Servers
 					.ToDictionary(
-						s => s.Name,
+						s => s,
 						s => _transport.GetProjects(s).Where(p => p.Name.EqualsIgnoreCase(projectSpec.Project))
 					)
 					.Where(pair => pair.Value.Any());
@@ -67,15 +65,11 @@ namespace Cruise.Commands.Status
 				projects.Each(set => toDisplay.Add(set.Key, set.Value));
 			}
 
+			var model = new StatusViewModel();
 
-			toDisplay.OrderBy(p => p.Key).Each(detail =>
-			{
-				_writer.Write(new GenericModel("{0}:", detail.Key));
+			toDisplay.Each(pair => model.Add(pair.Key, pair.Value));
 
-				detail.Value.Each(project => _writer.Write(new GenericModel("    {0,-12}{1}", project.Status, project.Name)));
-
-				_writer.Write("");
-			});
+			_writer.Write(model);
 
 			return true;
 		}
