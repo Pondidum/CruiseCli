@@ -1,6 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Cruise.Infrastructure;
 using Cruise.Models;
 using Cruise.Storage;
@@ -57,13 +57,9 @@ namespace Cruise
 
 			if (serverDetails.Count > 1)
 			{
-				_writer.Write("Error, ambiguous Project name.");
-				_writer.Write("Did you mean:");
+				var possible = serverDetails.Select(detail => new ProjectName(detail.Key.Name, spec.Project));
 
-				serverDetails
-					.Select(detail => new ProjectName(detail.Key.Name, spec.Project))
-					.Each(detail => _writer.Write(new GenericModel("    {0}", detail)));
-				_writer.Write("");
+				_writer.Write(new AmbiguousProjectNameViewModel(possible));
 
 				return false;
 			}
@@ -76,4 +72,5 @@ namespace Cruise
 			return true;
 		}
 	}
+
 }
