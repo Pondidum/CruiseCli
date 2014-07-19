@@ -1,4 +1,5 @@
 using System;
+using System.Configuration;
 using System.Linq;
 using System.Runtime.InteropServices;
 using Cruise.Infrastructure;
@@ -50,7 +51,7 @@ namespace Cruise
 
 			if (serverDetails.Any() == false)
 			{
-				_writer.Write(new GenericModel("Error, unable to find project '{0}'.", spec));
+				_writer.Write(new MissingProjectViewModel(spec));
 				_writer.Write("");
 				return false;
 			}
@@ -72,5 +73,4 @@ namespace Cruise
 			return true;
 		}
 	}
-
 }
