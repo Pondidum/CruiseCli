@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ErrorMessageViewModel.cs" />
     <Compile Include="Models\MissingProjectViewModel.cs" />
     <Compile Include="Models\AmbiguousProjectNameViewModel.cs" />
     <Compile Include="ApplicationSettings.cs" />

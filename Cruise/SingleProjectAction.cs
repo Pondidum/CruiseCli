@@ -30,8 +30,7 @@ namespace Cruise
 
 			if (spec.IsBlank || spec.HasProject == false)
 			{
-				_writer.Write("Error, you must specify a Project name.");
-				_writer.Write("");
+				_writer.Write(new ErrorMessageViewModel("Error, you must specify a Project name."));
 
 				return false;
 			}
@@ -52,7 +51,6 @@ namespace Cruise
 			if (serverDetails.Any() == false)
 			{
 				_writer.Write(new MissingProjectViewModel(spec));
-				_writer.Write("");
 				return false;
 			}
 
