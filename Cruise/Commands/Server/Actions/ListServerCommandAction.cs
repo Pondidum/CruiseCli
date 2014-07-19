@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Cruise.Infrastructure;
 using Cruise.Models;
 using Cruise.Storage;
@@ -24,14 +23,7 @@ namespace Cruise.Commands.Server
 
 		public bool Execute(ServerInputModel input)
 		{
-			if (input.VerboseFlag)
-			{
-				_storage.Servers.Each(server => _writer.Write(new GenericModel("    {0,-12}{1}", server.Name, server.Url)));
-			}
-			else
-			{
-				_storage.Servers.Each(server => _writer.Write(new GenericModel("    {0}", server.Name)));
-			}
+			_writer.Write(new ListServerViewModel(_storage.Servers, input.VerboseFlag));
 
 			return true;
 		}
