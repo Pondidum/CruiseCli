@@ -5,6 +5,7 @@ using Cruise.Commands.Server;
 using Cruise.Infrastructure;
 using Cruise.Storage;
 using NSubstitute;
+using Should;
 using Xunit;
 
 namespace Tests.Commands.ServerCommandTests
@@ -13,14 +14,14 @@ namespace Tests.Commands.ServerCommandTests
 	{
 		private readonly ListServerCommandAction _command;
 		private readonly FakeStorageModel _storage;
-		private readonly IResponseWriter _writer;
+		private readonly LogResponse _writer;
 		private readonly ISaveStorageModelCommand _save;
 
 		public ServerListTests()
 		{
 			_save = Substitute.For<ISaveStorageModelCommand>();
 			_storage = new FakeStorageModel();
-			_writer = Substitute.For<IResponseWriter>();
+			_writer = new LogResponse();
 
 			_command = new ListServerCommandAction(_storage, _writer);
 		}
@@ -30,7 +31,7 @@ namespace Tests.Commands.ServerCommandTests
 		{
 			_command.Execute(new ServerInputModel());
 
-			_writer.DidNotReceive().Write(Arg.Any<string>(), Arg.Any<object[]>());
+			_writer.Log.ShouldBeEmpty();
 		}
 
 		[Fact]
@@ -40,7 +41,7 @@ namespace Tests.Commands.ServerCommandTests
 
 			_command.Execute(new ServerInputModel());
 
-			_writer.Received().Write(Arg.Any<string>(), "test");
+			_writer.Log.ShouldContain("    test");
 		}
 
 		[Fact]
@@ -51,8 +52,8 @@ namespace Tests.Commands.ServerCommandTests
 
 			_command.Execute(new ServerInputModel());
 
-			_writer.Received().Write(Arg.Any<string>(), "first");
-			_writer.Received().Write(Arg.Any<string>(), "second");
+			_writer.Log.ShouldContain("    first");
+			_writer.Log.ShouldContain("    second");
 		}
 
 		[Fact]
@@ -63,8 +64,8 @@ namespace Tests.Commands.ServerCommandTests
 
 			_command.Execute(new ServerInputModel {VerboseFlag = true});
 
-			_writer.Received().Write(Arg.Any<string>(), "first", new Uri("http://f.example.com"));
-			_writer.Received().Write(Arg.Any<string>(), "second", new Uri("http://s.example.com"));
+			_writer.Log.ShouldContain("    first       http://f.example.com/");
+			_writer.Log.ShouldContain("    second      http://s.example.com/");
 		}
 	}
 }

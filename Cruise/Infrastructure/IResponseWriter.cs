@@ -2,6 +2,6 @@
 {
 	public interface IResponseWriter
 	{
-		void Write(string format, params object[] args);
+		void Write(object model);
 	}
 }

@@ -56,6 +56,7 @@
     <Compile Include="CommandFactoryBuilder.cs" />
     <Compile Include="Commands\Run\RunCommand.cs" />
     <Compile Include="Commands\Run\RunInputModel.cs" />
+    <Compile Include="Models\GenericModel.cs" />
     <Compile Include="SingleProjectAction.cs" />
     <Compile Include="Commands\Server\Actions\AddServerCommandAction.cs" />
     <Compile Include="Commands\Server\IServerCommandAction.cs" />

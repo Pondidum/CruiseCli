@@ -4,9 +4,9 @@ namespace Cruise.Infrastructure
 {
 	public class ConsoleResponse : IResponseWriter
 	{
-		public void Write(string format, params object[] args)
+		public void Write(object model)
 		{
-			Console.WriteLine(format, args);
+			Console.WriteLine(model.ToString());
 		}
 	}
 }

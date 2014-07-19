@@ -14,9 +14,9 @@ namespace Tests
 			_log = new List<string>();
 		}
 
-		public void Write(string format, params object[] args)
+		public void Write(object model)
 		{
-			_log.Add(string.Format(format, args));
+			_log.Add(model.ToString());
 		}
 	}
 }

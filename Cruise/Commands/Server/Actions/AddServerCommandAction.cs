@@ -1,5 +1,6 @@
 using System;
 using Cruise.Infrastructure;
+using Cruise.Models;
 using Cruise.Storage;
 
 namespace Cruise.Commands.Server
@@ -26,7 +27,7 @@ namespace Cruise.Commands.Server
 		{
 			if (_storage.IsRegistered(input.Name))
 			{
-				_writer.Write("Server {0} ({1}) is already registered.", input.Name, input.Url);
+				_writer.Write(new GenericModel("Server {0} ({1}) is already registered.", input.Name, input.Url));
 				return false;
 			}
 

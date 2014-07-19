@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cruise.Infrastructure;
+using Cruise.Models;
 using Cruise.Storage;
 using Cruise.Transport;
 using FubuCore;
@@ -49,7 +50,7 @@ namespace Cruise
 
 			if (serverDetails.Any() == false)
 			{
-				_writer.Write("Error, unable to find project '{0}'.", spec);
+				_writer.Write(new GenericModel("Error, unable to find project '{0}'.", spec));
 				_writer.Write("");
 				return false;
 			}
@@ -61,7 +62,7 @@ namespace Cruise
 
 				serverDetails
 					.Select(detail => new ProjectName(detail.Key.Name, spec.Project))
-					.Each(detail => _writer.Write("    {0}", detail));
+					.Each(detail => _writer.Write(new GenericModel("    {0}", detail)));
 				_writer.Write("");
 
 				return false;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cruise.Infrastructure;
+using Cruise.Models;
 using Cruise.Storage;
 using Cruise.Transport;
 using FubuCore;
@@ -69,9 +70,9 @@ namespace Cruise.Commands.Status
 
 			toDisplay.OrderBy(p => p.Key).Each(detail =>
 			{
-				_writer.Write("{0}:", detail.Key);
+				_writer.Write(new GenericModel("{0}:", detail.Key));
 
-				detail.Value.Each(project => _writer.Write("    {0,-12}{1}", project.Status, project.Name));
+				detail.Value.Each(project => _writer.Write(new GenericModel("    {0,-12}{1}", project.Status, project.Name)));
 
 				_writer.Write("");
 			});
