@@ -52,6 +52,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\ViewEngine\MissingViewException.cs" />
+    <Compile Include="Infrastructure\ViewEngine\View.cs" />
+    <Compile Include="Infrastructure\ViewEngine\ViewResponseWriter.cs" />
     <Compile Include="Models\ErrorMessageViewModel.cs" />
     <Compile Include="Models\MissingProjectViewModel.cs" />
     <Compile Include="Models\AmbiguousProjectNameViewModel.cs" />
