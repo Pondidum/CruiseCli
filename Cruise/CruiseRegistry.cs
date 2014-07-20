@@ -1,5 +1,6 @@
 using Cruise.Commands.Server;
 using Cruise.Infrastructure;
+using Cruise.Infrastructure.ViewEngine;
 using Cruise.Storage;
 using Cruise.Transport;
 using StructureMap.Configuration.DSL;
@@ -17,6 +18,7 @@ namespace Cruise
 				a.WithDefaultConventions();
 
 				a.AddAllTypesOf<IServerCommandAction>();
+				a.AddAllTypesOf<View>();
 			});
 
 
@@ -28,7 +30,7 @@ namespace Cruise
 				.Use<UserProfileConfigStore>();
 
 			For<IResponseWriter>()
-				.Use<ConsoleResponse>();
+				.Use<ViewResponseWriter>();
 
 			For<ITransportModel>()
 				.Use<CruiseControlTransportModel>();

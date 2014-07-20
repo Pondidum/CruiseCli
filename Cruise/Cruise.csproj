@@ -52,10 +52,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Server\ListServerView.cs" />
+    <Compile Include="Commands\Server\ServerAlreadyRegisteredView.cs" />
+    <Compile Include="Commands\Status\StatusView.cs" />
     <Compile Include="Infrastructure\ViewEngine\MissingViewException.cs" />
     <Compile Include="Infrastructure\ViewEngine\View.cs" />
     <Compile Include="Infrastructure\ViewEngine\ViewResponseWriter.cs" />
+    <Compile Include="Models\AmbiguousProjectNameView.cs" />
+    <Compile Include="Models\ErrorMessageView.cs" />
     <Compile Include="Models\ErrorMessageViewModel.cs" />
+    <Compile Include="Models\MissingProjectView.cs" />
     <Compile Include="Models\MissingProjectViewModel.cs" />
     <Compile Include="Models\AmbiguousProjectNameViewModel.cs" />
     <Compile Include="ApplicationSettings.cs" />
