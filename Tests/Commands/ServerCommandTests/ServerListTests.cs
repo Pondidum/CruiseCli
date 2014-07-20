@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cruise.Commands.Server;
+using Cruise.Commands.Server.Actions;
 using Cruise.Infrastructure;
 using Cruise.Storage;
 using NSubstitute;

@@ -62,8 +62,8 @@
     <Compile Include="CommandFactoryBuilder.cs" />
     <Compile Include="Commands\Run\RunCommand.cs" />
     <Compile Include="Commands\Run\RunInputModel.cs" />
-    <Compile Include="Commands\Server\Actions\ListServerViewModel.cs" />
-    <Compile Include="Commands\Server\Actions\ServerAlreadyRegisteredViewModel.cs" />
+    <Compile Include="Commands\Server\ListServerViewModel.cs" />
+    <Compile Include="Commands\Server\ServerAlreadyRegisteredViewModel.cs" />
     <Compile Include="Commands\Status\StatusViewModel.cs" />
     <Compile Include="SingleProjectAction.cs" />
     <Compile Include="Commands\Server\Actions\AddServerCommandAction.cs" />

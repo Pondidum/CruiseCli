@@ -1,9 +1,8 @@
 using System;
 using Cruise.Infrastructure;
-using Cruise.Models;
 using Cruise.Storage;
 
-namespace Cruise.Commands.Server
+namespace Cruise.Commands.Server.Actions
 {
 	public class AddServerCommandAction : IServerCommandAction
 	{
