@@ -7,11 +7,11 @@ namespace Cruise.Commands.Status
 {
 	public class StatusView : View<StatusViewModel>
 	{
-		private readonly IConfigurationModel _storage;
+		private readonly IConfigurationModel _configuration;
 
-		public StatusView(IConfigurationModel storage)
+		public StatusView(IConfigurationModel configuration)
 		{
-			_storage = storage;
+			_configuration = configuration;
 		}
 
 		public override void Render(StatusViewModel model)

@@ -5,12 +5,12 @@ namespace Cruise.Commands.Server.Actions
 	public class RemoveServerCommandAction : IServerCommandAction
 	{
 		private readonly ISaveStorageModelCommand _saveCommand;
-		private readonly IConfigurationModel _storage;
+		private readonly IConfigurationModel _configuration;
 
-		public RemoveServerCommandAction(ISaveStorageModelCommand saveCommand, IConfigurationModel storage)
+		public RemoveServerCommandAction(ISaveStorageModelCommand saveCommand, IConfigurationModel configuration)
 		{
 			_saveCommand = saveCommand;
-			_storage = storage;
+			_configuration = configuration;
 		}
 
 		public bool CanHandle(ServerInputModel input)
@@ -20,10 +20,10 @@ namespace Cruise.Commands.Server.Actions
 
 		public bool Execute(ServerInputModel input)
 		{
-			if (_storage.IsRegistered(input.Name))
+			if (_configuration.IsRegistered(input.Name))
 			{
-				_storage.UnRegister(input.Name);
-				_saveCommand.Execute(_storage);
+				_configuration.UnRegister(input.Name);
+				_saveCommand.Execute(_configuration);
 			}
 
 			return true;

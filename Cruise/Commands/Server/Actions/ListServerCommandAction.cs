@@ -5,12 +5,12 @@ namespace Cruise.Commands.Server.Actions
 {
 	public class ListServerCommandAction : IServerCommandAction
 	{
-		private readonly IConfigurationModel _storage;
+		private readonly IConfigurationModel _configuration;
 		private readonly IResponseWriter _writer;
 
-		public ListServerCommandAction(IConfigurationModel storage, IResponseWriter writer)
+		public ListServerCommandAction(IConfigurationModel configuration, IResponseWriter writer)
 		{
-			_storage = storage;
+			_configuration = configuration;
 			_writer = writer;
 		}
 
@@ -22,7 +22,7 @@ namespace Cruise.Commands.Server.Actions
 
 		public bool Execute(ServerInputModel input)
 		{
-			_writer.Write(new ListServerViewModel(_storage.Servers, input.VerboseFlag));
+			_writer.Write(new ListServerViewModel(_configuration.Servers, input.VerboseFlag));
 
 			return true;
 		}

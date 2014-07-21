@@ -10,13 +10,13 @@ namespace Cruise.Commands.Status
 {
 	public class StatusCommand : FubuCommand<StatusInputModel>
 	{
-		private readonly IConfigurationModel _storage;
+		private readonly IConfigurationModel _configuration;
 		private readonly ITransportModel _transport;
 		private readonly IResponseWriter _writer;
 
-		public StatusCommand(IResponseWriter writer, IConfigurationModel storage, ITransportModel transport)
+		public StatusCommand(IResponseWriter writer, IConfigurationModel configuration, ITransportModel transport)
 		{
-			_storage = storage;
+			_configuration = configuration;
 			_transport = transport;
 			_writer = writer;
 
@@ -36,25 +36,25 @@ namespace Cruise.Commands.Status
 
 			if (projectSpec.IsBlank)
 			{
-				toDisplay = _storage.Servers.ToDictionary(s => s, s => _transport.GetProjects(s));
+				toDisplay = _configuration.Servers.ToDictionary(s => s, s => _transport.GetProjects(s));
 			}
 			else if (projectSpec.HasServer && projectSpec.HasProject)
 			{
-				var projects = _transport.GetProjects(_storage.GetServerByName(projectSpec.Server));
+				var projects = _transport.GetProjects(_configuration.GetServerByName(projectSpec.Server));
 				var project = projects.FirstOrDefault(p => p.Name.EqualsIgnoreCase(projectSpec.Project));
 
 				if (project != null)
 				{
-					toDisplay.Add(_storage.GetServerByName(projectSpec.Server), new[] { project });
+					toDisplay.Add(_configuration.GetServerByName(projectSpec.Server), new[] { project });
 				}
 			}
 			else if (projectSpec.HasServer)
 			{
-				toDisplay.Add(_storage.GetServerByName(projectSpec.Server), _transport.GetProjects(_storage.GetServerByName(projectSpec.Server)));
+				toDisplay.Add(_configuration.GetServerByName(projectSpec.Server), _transport.GetProjects(_configuration.GetServerByName(projectSpec.Server)));
 			}
 			else if (projectSpec.HasProject)
 			{
-				var projects = _storage
+				var projects = _configuration
 					.Servers
 					.ToDictionary(
 						s => s,

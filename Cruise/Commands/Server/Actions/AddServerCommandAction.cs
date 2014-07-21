@@ -7,13 +7,13 @@ namespace Cruise.Commands.Server.Actions
 	public class AddServerCommandAction : IServerCommandAction
 	{
 		private readonly ISaveStorageModelCommand _saveCommand;
-		private readonly IConfigurationModel _storage;
+		private readonly IConfigurationModel _configuration;
 		private readonly IResponseWriter _writer;
 
-		public AddServerCommandAction(ISaveStorageModelCommand saveCommand, IConfigurationModel storage, IResponseWriter writer)
+		public AddServerCommandAction(ISaveStorageModelCommand saveCommand, IConfigurationModel configuration, IResponseWriter writer)
 		{
 			_saveCommand = saveCommand;
-			_storage = storage;
+			_configuration = configuration;
 			_writer = writer;
 		}
 
@@ -24,14 +24,14 @@ namespace Cruise.Commands.Server.Actions
 
 		public bool Execute(ServerInputModel input)
 		{
-			if (_storage.IsRegistered(input.Name))
+			if (_configuration.IsRegistered(input.Name))
 			{
 				_writer.Write(new ServerAlreadyRegisteredViewModel(input.Name, input.Url));
 				return false;
 			}
 
-			_storage.Register(input.Name, new Uri(input.Url));
-			_saveCommand.Execute(_storage);
+			_configuration.Register(input.Name, new Uri(input.Url));
+			_saveCommand.Execute(_configuration);
 
 			return true;
 		}

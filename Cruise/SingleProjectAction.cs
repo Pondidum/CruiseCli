@@ -1,7 +1,5 @@
 using System;
-using System.Configuration;
 using System.Linq;
-using System.Runtime.InteropServices;
 using Cruise.Infrastructure;
 using Cruise.Models;
 using Cruise.Storage;
@@ -13,13 +11,13 @@ namespace Cruise
 	public class SingleProjectAction
 	{
 		private readonly IResponseWriter _writer;
-		private readonly IConfigurationModel _storage;
+		private readonly IConfigurationModel _configuration;
 		private readonly ITransportModel _transport;
 
-		public SingleProjectAction(IResponseWriter writer, IConfigurationModel storage, ITransportModel transport)
+		public SingleProjectAction(IResponseWriter writer, IConfigurationModel configuration, ITransportModel transport)
 		{
 			_writer = writer;
-			_storage = storage;
+			_configuration = configuration;
 			_transport = transport;
 		}
 
@@ -35,11 +33,11 @@ namespace Cruise
 				return false;
 			}
 
-			var allServers = _storage.Servers;
+			var allServers = _configuration.Servers;
 
 			if (spec.HasServer)
 			{
-				allServers = new[] { _storage.GetServerByName(spec.Server) };
+				allServers = new[] { _configuration.GetServerByName(spec.Server) };
 			}
 
 			var serverDetails = allServers
