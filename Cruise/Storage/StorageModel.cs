@@ -10,6 +10,7 @@ namespace Cruise.Storage
 		private const StringComparison Ignore = StringComparison.InvariantCultureIgnoreCase;
 
 		private readonly List<IServerDetails> _servers;
+		private readonly Colours _colours;
 
 		public StorageModel(StorageModelMemento memento)
 		{
@@ -18,6 +19,8 @@ namespace Cruise.Storage
 				.Select(pair => new ServerDetails(pair.Key, pair.Value))
 				.Cast<IServerDetails>()
 				.ToList();
+
+			_colours = memento.Colours;
 		}
 
 		public  IEnumerable<IServerDetails> Servers
@@ -54,7 +57,8 @@ namespace Cruise.Storage
 		{
 			var memento = new StorageModelMemento
 			{
-				Servers = Servers.ToDictionary(server => server.Name, server => server.Url)
+				Servers = Servers.ToDictionary(server => server.Name, server => server.Url),
+				Colours = _colours,
 			};
 
 			return memento;
