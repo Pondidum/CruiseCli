@@ -14,17 +14,17 @@ namespace Tests.Commands.ServerCommandTests
 	public class ServerListTests
 	{
 		private readonly ListServerCommandAction _command;
-		private readonly FakeConfigurationModel _storage;
+		private readonly FakeConfigurationModel _configuration;
 		private readonly LogResponse _writer;
 		private readonly ISaveStorageModelCommand _save;
 
 		public ServerListTests()
 		{
 			_save = Substitute.For<ISaveStorageModelCommand>();
-			_storage = new FakeConfigurationModel();
+			_configuration = new FakeConfigurationModel();
 			_writer = new LogResponse();
 
-			_command = new ListServerCommandAction(_storage, _writer);
+			_command = new ListServerCommandAction(_configuration, _writer);
 		}
 
 		[Fact]
@@ -38,7 +38,7 @@ namespace Tests.Commands.ServerCommandTests
 		[Fact]
 		public void When_there_is_one_registered_server()
 		{
-			_storage.Insert(new ServerDetails("test", new Uri("http://example.com")));
+			_configuration.Insert(new ServerDetails("test", new Uri("http://example.com")));
 
 			_command.Execute(new ServerInputModel());
 
@@ -48,8 +48,8 @@ namespace Tests.Commands.ServerCommandTests
 		[Fact]
 		public void When_there_are_two_registered_servers()
 		{
-			_storage.Insert(new ServerDetails("first", new Uri("http://example.com")));
-			_storage.Insert(new ServerDetails("second", new Uri("http://example.com")));
+			_configuration.Insert(new ServerDetails("first", new Uri("http://example.com")));
+			_configuration.Insert(new ServerDetails("second", new Uri("http://example.com")));
 
 			_command.Execute(new ServerInputModel());
 
@@ -62,8 +62,8 @@ namespace Tests.Commands.ServerCommandTests
 		[Fact]
 		public void When_the_verbose_flag_is_set()
 		{
-			_storage.Insert(new ServerDetails("first", new Uri("http://f.example.com")));
-			_storage.Insert(new ServerDetails("second", new Uri("http://s.example.com")));
+			_configuration.Insert(new ServerDetails("first", new Uri("http://f.example.com")));
+			_configuration.Insert(new ServerDetails("second", new Uri("http://s.example.com")));
 
 			_command.Execute(new ServerInputModel {VerboseFlag = true});
 

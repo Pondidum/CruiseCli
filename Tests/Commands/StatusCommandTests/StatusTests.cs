@@ -14,7 +14,7 @@ namespace Tests.Commands.StatusCommandTests
 	public class StatusTests : CommandTestBase
 	{
 		private readonly LogResponse _writer;
-		private readonly FakeConfigurationModel _storage;
+		private readonly FakeConfigurationModel _configuration;
 		private readonly ITransportModel _transport;
 		private readonly StatusCommand _command;
 		private readonly IServerDetails _testServer;
@@ -26,10 +26,10 @@ namespace Tests.Commands.StatusCommandTests
 			_secondServer = new ServerDetails("Second", new Uri("http://example.com"));
 
 			_writer = new LogResponse();
-			_storage = new FakeConfigurationModel();
+			_configuration = new FakeConfigurationModel();
 			_transport = Substitute.For<ITransportModel>();
 
-			_command = new StatusCommand(_writer, _storage, _transport);
+			_command = new StatusCommand(_writer, _configuration, _transport);
 		}
 
 		[Fact]
@@ -45,7 +45,7 @@ namespace Tests.Commands.StatusCommandTests
 		[Fact]
 		public void When_there_is_one_server_with_no_projects()
 		{
-			_storage.Insert(_testServer);
+			_configuration.Insert(_testServer);
 			_transport.GetProjects(_testServer).Returns(Enumerable.Empty<IProject>());
 
 			_command.Execute(new StatusInputModel());
@@ -59,7 +59,7 @@ namespace Tests.Commands.StatusCommandTests
 		[Fact]
 		public void When_there_is_one_server_with_one_project()
 		{
-			_storage.Insert(_testServer);
+			_configuration.Insert(_testServer);
 
 			_transport
 				.GetProjects(_testServer)
@@ -76,8 +76,8 @@ namespace Tests.Commands.StatusCommandTests
 		[Fact]
 		public void When_there_are_two_servers_with_projects()
 		{
-			_storage.Insert(_testServer);
-			_storage.Insert(_secondServer);
+			_configuration.Insert(_testServer);
+			_configuration.Insert(_secondServer);
 
 			_transport.GetProjects(_testServer).Returns(new[] { TestProject });
 			_transport.GetProjects(_secondServer).Returns(new[] { TestProject });

@@ -25,9 +25,9 @@ namespace Tests.Commands.VolunteerCommandTests
 			_primaryServer = new ServerDetails("Primary", new Uri("http://p.example.com"));
 			_secondaryServer = new ServerDetails("Secondary", new Uri("http://s.example.com"));
 
-			var storage = new FakeConfigurationModel();
-			storage.Insert(_primaryServer);
-			storage.Insert(_secondaryServer);
+			var configuration = new FakeConfigurationModel();
+			configuration.Insert(_primaryServer);
+			configuration.Insert(_secondaryServer);
 
 			_transport = Substitute.For<ITransportModel>();
 
@@ -39,7 +39,7 @@ namespace Tests.Commands.VolunteerCommandTests
 				.GetProjects(_secondaryServer)
 				.Returns(new[] { OtherProject });
 
-			var action = new SingleProjectAction(_writer, storage, _transport);
+			var action = new SingleProjectAction(_writer, configuration, _transport);
 			_command = new VolunteerCommand(_transport, action);
 		}
 
