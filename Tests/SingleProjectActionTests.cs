@@ -21,7 +21,7 @@ namespace Tests
 
 			var writer = Substitute.For<IResponseWriter>();
 
-			var storage = new FakeStorageModel();
+			var storage = new FakeConfigurationModel();
 			storage.Insert(localServer);
 
 			_transport = Substitute.For<ITransportModel>();

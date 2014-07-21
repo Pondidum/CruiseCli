@@ -14,7 +14,7 @@ namespace Tests.Commands.StatusCommandTests
 	public class StatusTests : CommandTestBase
 	{
 		private readonly LogResponse _writer;
-		private readonly FakeStorageModel _storage;
+		private readonly FakeConfigurationModel _storage;
 		private readonly ITransportModel _transport;
 		private readonly StatusCommand _command;
 		private readonly IServerDetails _testServer;
@@ -26,7 +26,7 @@ namespace Tests.Commands.StatusCommandTests
 			_secondServer = new ServerDetails("Second", new Uri("http://example.com"));
 
 			_writer = new LogResponse();
-			_storage = new FakeStorageModel();
+			_storage = new FakeConfigurationModel();
 			_transport = Substitute.For<ITransportModel>();
 
 			_command = new StatusCommand(_writer, _storage, _transport);

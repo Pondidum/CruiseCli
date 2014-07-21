@@ -7,11 +7,11 @@ using FubuCore;
 
 namespace Tests
 {
-	public class FakeStorageModel : IConfigurationModel
+	public class FakeConfigurationModel : IConfigurationModel
 	{
 		private readonly List<IServerDetails> _servers;
 
-		public FakeStorageModel()
+		public FakeConfigurationModel()
 		{
 			_servers = new List<IServerDetails>();
 			Colors = new DefaultColors();

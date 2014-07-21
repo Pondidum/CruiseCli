@@ -68,7 +68,7 @@
     <Compile Include="Commands\VolunteerCommandTests\VolunteerCommandUsageTests.cs" />
     <Compile Include="Commands\VolunteerCommandTests\VolenteerTests.cs" />
     <Compile Include="FactDebuggerOnlyAttribute.cs" />
-    <Compile Include="FakeStorageModel.cs" />
+    <Compile Include="FakeConfigurationModel.cs" />
     <Compile Include="Infrastructure\ViewEngine\ViewResponseWriterTests.cs" />
     <Compile Include="InMemoryConfigStore.cs" />
     <Compile Include="LogResponse.cs" />
