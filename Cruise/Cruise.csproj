@@ -100,7 +100,7 @@
     <Compile Include="Storage\ServerAlreadyRegisteredException.cs" />
     <Compile Include="Storage\GetStorageModelQuery.cs" />
     <Compile Include="Storage\ServerDetails.cs" />
-    <Compile Include="Storage\StorageModel.cs" />
+    <Compile Include="Storage\ConfigurationModel.cs" />
     <Compile Include="Storage\StorageModelMemento.cs" />
     <Compile Include="Storage\SaveStorageModelCommand.cs" />
     <Compile Include="StructureMapAdaptor.cs" />

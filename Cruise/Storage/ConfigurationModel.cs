@@ -7,7 +7,7 @@ using FubuCore.Util;
 
 namespace Cruise.Storage
 {
-	public class StorageModel : IConfigurationModel
+	public class ConfigurationModel : IConfigurationModel
 	{
 		private const StringComparison Ignore = StringComparison.InvariantCultureIgnoreCase;
 
@@ -16,7 +16,7 @@ namespace Cruise.Storage
 
 		private readonly List<IServerDetails> _servers;
 		
-		public StorageModel(StorageModelMemento memento)
+		public ConfigurationModel(StorageModelMemento memento)
 		{
 			_servers = memento
 				.Servers
