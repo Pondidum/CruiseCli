@@ -7,7 +7,7 @@ using FubuCore.Util;
 
 namespace Cruise.Storage
 {
-	public class StorageModel : IStorageModel
+	public class StorageModel : IConfigurationModel
 	{
 		private const StringComparison Ignore = StringComparison.InvariantCultureIgnoreCase;
 

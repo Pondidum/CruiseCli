@@ -2,6 +2,6 @@
 {
 	public interface ISaveStorageModelCommand
 	{
-		void Execute(IStorageModel model);
+		void Execute(IConfigurationModel model);
 	}
 }

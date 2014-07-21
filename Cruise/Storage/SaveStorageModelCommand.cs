@@ -13,7 +13,7 @@ namespace Cruise.Storage
 			_configuration = configuration;
 		}
 
-		public void Execute(IStorageModel model)
+		public void Execute(IConfigurationModel model)
 		{
 			var memento = model.ToMemento();
 

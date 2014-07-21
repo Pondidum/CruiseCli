@@ -10,11 +10,11 @@ namespace Cruise.Commands.Status
 {
 	public class StatusCommand : FubuCommand<StatusInputModel>
 	{
-		private readonly IStorageModel _storage;
+		private readonly IConfigurationModel _storage;
 		private readonly ITransportModel _transport;
 		private readonly IResponseWriter _writer;
 
-		public StatusCommand(IResponseWriter writer, IStorageModel storage, ITransportModel transport)
+		public StatusCommand(IResponseWriter writer, IConfigurationModel storage, ITransportModel transport)
 		{
 			_storage = storage;
 			_transport = transport;

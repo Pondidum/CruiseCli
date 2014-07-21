@@ -13,10 +13,10 @@ namespace Cruise
 	public class SingleProjectAction
 	{
 		private readonly IResponseWriter _writer;
-		private readonly IStorageModel _storage;
+		private readonly IConfigurationModel _storage;
 		private readonly ITransportModel _transport;
 
-		public SingleProjectAction(IResponseWriter writer, IStorageModel storage, ITransportModel transport)
+		public SingleProjectAction(IResponseWriter writer, IConfigurationModel storage, ITransportModel transport)
 		{
 			_writer = writer;
 			_storage = storage;

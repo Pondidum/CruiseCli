@@ -95,7 +95,7 @@
     <Compile Include="Storage\Colors.cs" />
     <Compile Include="Storage\DefaultColors.cs" />
     <Compile Include="Storage\IServerDetails.cs" />
-    <Compile Include="Storage\IStorageModel.cs" />
+    <Compile Include="Storage\IConfigurationModel.cs" />
     <Compile Include="Storage\ISaveStorageModelCommand.cs" />
     <Compile Include="Storage\ServerAlreadyRegisteredException.cs" />
     <Compile Include="Storage\GetStorageModelQuery.cs" />

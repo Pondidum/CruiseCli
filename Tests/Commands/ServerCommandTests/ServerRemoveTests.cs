@@ -10,13 +10,13 @@ namespace Tests.Commands.ServerCommandTests
 	public class ServerRemoveTests
 	{
 		private readonly RemoveServerCommandAction _command;
-		private readonly IStorageModel _storage;
+		private readonly IConfigurationModel _storage;
 		private readonly ISaveStorageModelCommand _save;
 
 		public ServerRemoveTests()
 		{
 			_save = Substitute.For<ISaveStorageModelCommand>();
-			_storage = Substitute.For<IStorageModel>();
+			_storage = Substitute.For<IConfigurationModel>();
 
 			_command = new RemoveServerCommandAction(_save, _storage);
 		}

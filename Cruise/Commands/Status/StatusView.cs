@@ -7,9 +7,9 @@ namespace Cruise.Commands.Status
 {
 	public class StatusView : View<StatusViewModel>
 	{
-		private readonly IStorageModel _storage;
+		private readonly IConfigurationModel _storage;
 
-		public StatusView(IStorageModel storage)
+		public StatusView(IConfigurationModel storage)
 		{
 			_storage = storage;
 		}

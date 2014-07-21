@@ -11,14 +11,14 @@ namespace Tests.Commands.ServerCommandTests
 	public class ServerAddTests
 	{
 		private readonly AddServerCommandAction _command;
-		private readonly IStorageModel _storage;
+		private readonly IConfigurationModel _storage;
 		private readonly IResponseWriter _writer;
 		private readonly ISaveStorageModelCommand _save;
 
 		public ServerAddTests()
 		{
 			_save = Substitute.For<ISaveStorageModelCommand>();
-			_storage = Substitute.For<IStorageModel>();
+			_storage = Substitute.For<IConfigurationModel>();
 			_writer = Substitute.For<IResponseWriter>();
 
 			_command = new AddServerCommandAction(_save, _storage, _writer);

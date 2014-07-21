@@ -5,9 +5,9 @@ namespace Cruise.Commands.Server.Actions
 	public class RemoveServerCommandAction : IServerCommandAction
 	{
 		private readonly ISaveStorageModelCommand _saveCommand;
-		private readonly IStorageModel _storage;
+		private readonly IConfigurationModel _storage;
 
-		public RemoveServerCommandAction(ISaveStorageModelCommand saveCommand, IStorageModel storage)
+		public RemoveServerCommandAction(ISaveStorageModelCommand saveCommand, IConfigurationModel storage)
 		{
 			_saveCommand = saveCommand;
 			_storage = storage;

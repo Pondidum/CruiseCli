@@ -5,10 +5,10 @@ namespace Cruise.Commands.Server.Actions
 {
 	public class ListServerCommandAction : IServerCommandAction
 	{
-		private readonly IStorageModel _storage;
+		private readonly IConfigurationModel _storage;
 		private readonly IResponseWriter _writer;
 
-		public ListServerCommandAction(IStorageModel storage, IResponseWriter writer)
+		public ListServerCommandAction(IConfigurationModel storage, IResponseWriter writer)
 		{
 			_storage = storage;
 			_writer = writer;

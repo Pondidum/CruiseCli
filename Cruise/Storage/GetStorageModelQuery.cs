@@ -13,7 +13,7 @@ namespace Cruise.Storage
 			_configuration = configuration;
 		}
 
-		public IStorageModel Execute()
+		public IConfigurationModel Execute()
 		{
 			using (var stream = _configuration.Read())
 			{

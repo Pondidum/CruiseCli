@@ -7,7 +7,7 @@ using FubuCore;
 
 namespace Tests
 {
-	public class FakeStorageModel : IStorageModel
+	public class FakeStorageModel : IConfigurationModel
 	{
 		private readonly List<IServerDetails> _servers;
 

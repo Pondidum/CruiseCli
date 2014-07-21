@@ -7,10 +7,10 @@ namespace Cruise.Commands.Server.Actions
 	public class AddServerCommandAction : IServerCommandAction
 	{
 		private readonly ISaveStorageModelCommand _saveCommand;
-		private readonly IStorageModel _storage;
+		private readonly IConfigurationModel _storage;
 		private readonly IResponseWriter _writer;
 
-		public AddServerCommandAction(ISaveStorageModelCommand saveCommand, IStorageModel storage, IResponseWriter writer)
+		public AddServerCommandAction(ISaveStorageModelCommand saveCommand, IConfigurationModel storage, IResponseWriter writer)
 		{
 			_saveCommand = saveCommand;
 			_storage = storage;

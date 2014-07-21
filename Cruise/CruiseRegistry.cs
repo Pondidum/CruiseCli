@@ -22,7 +22,7 @@ namespace Cruise
 			});
 
 
-			For<IStorageModel>()
+			For<IConfigurationModel>()
 				.Use(x => x.GetInstance<GetStorageModelQuery>().Execute())
 				.Singleton();
 

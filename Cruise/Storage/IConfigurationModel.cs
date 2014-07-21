@@ -4,7 +4,7 @@ using Cruise.Transport;
 
 namespace Cruise.Storage
 {
-	public interface IStorageModel
+	public interface IConfigurationModel
 	{
 		IEnumerable<IServerDetails> Servers { get; }
 		Colors Colors { get; }

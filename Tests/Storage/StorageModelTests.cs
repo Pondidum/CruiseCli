@@ -8,7 +8,7 @@ namespace Tests.Storage
 {
 	public class StorageModelTests
 	{
-		private readonly IStorageModel _model;
+		private readonly IConfigurationModel _model;
 
 		public StorageModelTests()
 		{

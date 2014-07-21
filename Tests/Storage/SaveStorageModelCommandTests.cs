@@ -30,7 +30,7 @@ namespace Tests.Storage
 		[Fact]
 		public void When_saving_a_blank_model()
 		{
-			var model = Substitute.For<IStorageModel>();
+			var model = Substitute.For<IConfigurationModel>();
 			model.Servers.Returns(Enumerable.Empty<IServerDetails>());
 
 			var cmd = new SaveStorageModelCommand(_fileSystem);
@@ -43,7 +43,7 @@ namespace Tests.Storage
 		[Fact]
 		public void When_saving_a_populated_model()
 		{
-			var model = Substitute.For<IStorageModel>();
+			var model = Substitute.For<IConfigurationModel>();
 			model.Servers.Returns(new[] { new ServerDetails("local", new Uri("tcp://127.0.0.1:21234/CruiseManager.rem")) });
 
 			var cmd = new SaveStorageModelCommand(_fileSystem);
