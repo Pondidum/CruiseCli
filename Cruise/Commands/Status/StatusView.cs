@@ -1,11 +1,19 @@
 using System;
 using System.Linq;
 using Cruise.Infrastructure.ViewEngine;
+using Cruise.Storage;
 
 namespace Cruise.Commands.Status
 {
 	public class StatusView : View<StatusViewModel>
 	{
+		private readonly IStorageModel _storage;
+
+		public StatusView(IStorageModel storage)
+		{
+			_storage = storage;
+		}
+
 		public override void Render(StatusViewModel model)
 		{
 			var ordered = model.Servers
@@ -21,7 +29,11 @@ namespace Cruise.Commands.Status
 					.OrderBy(p => p.Name)
 					.ToList();
 
-				projects.ForEach(project => Console.WriteLine("    {0,-12}{1}", project.Status, project.Name));
+				projects.ForEach(project =>
+				{
+
+					Console.WriteLine("    {0,-12}{1}", project.Status, project.Name);
+				});
 
 				Console.WriteLine();
 			});

@@ -6,12 +6,12 @@ namespace Cruise.Storage
 	public class StorageModelMemento
 	{
 		public Dictionary<string, Uri> Servers { get; set; }
-		public Colours Colours { get; set; }
+		public Colors Colors { get; set; }
 
 		public StorageModelMemento()
 		{
 			Servers = new Dictionary<string, Uri>();
-			Colours = new DefaultColours();
+			Colors = new DefaultColors();
 		}
 	}
 }

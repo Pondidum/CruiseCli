@@ -11,7 +11,7 @@ namespace Cruise.Storage
 	{
 		private const StringComparison Ignore = StringComparison.InvariantCultureIgnoreCase;
 
-		public Colours Colours { get; private set; }
+		public Colors Colors { get; private set; }
 		public IEnumerable<IServerDetails> Servers { get { return _servers; } }
 
 		private readonly List<IServerDetails> _servers;
@@ -24,7 +24,7 @@ namespace Cruise.Storage
 				.Cast<IServerDetails>()
 				.ToList();
 
-			Colours = memento.Colours;
+			Colors = memento.Colors;
 		}
 
 		public bool IsRegistered(string serverName)
@@ -52,10 +52,10 @@ namespace Cruise.Storage
 			return _servers.FirstOrDefault(s => s.Name.EqualsIgnoreCase(serverName));
 		}
 
-		public ConsoleColor GetColourForProject(IProject project)
+		public ConsoleColor GetColorForProject(IProject project)
 		{
 			var map = new Cache<String, ConsoleColor>();
-			map.OnMissing = key => Colours.Default;
+			map.OnMissing = key => Colors.Default;
 
 			return map[project.Status];
 		}
@@ -65,7 +65,7 @@ namespace Cruise.Storage
 			var memento = new StorageModelMemento
 			{
 				Servers = Servers.ToDictionary(server => server.Name, server => server.Url),
-				Colours = Colours,
+				Colors = Colors,
 			};
 
 			return memento;

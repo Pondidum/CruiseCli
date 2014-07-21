@@ -2,9 +2,9 @@ using System;
 
 namespace Cruise.Storage
 {
-	public class DefaultColours : Colours
+	public class DefaultColors : Colors
 	{
-		public DefaultColours()
+		public DefaultColors()
 		{
 			Default = Console.ForegroundColor;
 			Error = ConsoleColor.Red;

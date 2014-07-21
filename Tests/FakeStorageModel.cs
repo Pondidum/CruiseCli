@@ -14,7 +14,7 @@ namespace Tests
 		public FakeStorageModel()
 		{
 			_servers = new List<IServerDetails>();
-			Colours = new DefaultColours();
+			Colors = new DefaultColors();
 		}
 
 		public void Insert(IServerDetails server)
@@ -23,7 +23,7 @@ namespace Tests
 		}
 
 		public IEnumerable<IServerDetails> Servers { get { return _servers;  } }
-		public Colours Colours { get; private set; }
+		public Colors Colors { get; private set; }
 
 		public bool IsRegistered(string serverName)
 		{
@@ -45,9 +45,9 @@ namespace Tests
 			return _servers.FirstOrDefault(server => server.Name.EqualsIgnoreCase(serverName));
 		}
 
-		public ConsoleColor GetColourForProject(IProject project)
+		public ConsoleColor GetColorForProject(IProject project)
 		{
-			return Colours.Default;
+			return Colors.Default;
 		}
 
 		public StorageModelMemento ToMemento()

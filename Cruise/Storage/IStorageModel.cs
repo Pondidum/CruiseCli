@@ -7,7 +7,7 @@ namespace Cruise.Storage
 	public interface IStorageModel
 	{
 		IEnumerable<IServerDetails> Servers { get; }
-		Colours Colours { get; }
+		Colors Colors { get; }
 
 		bool IsRegistered(string serverName);
 		void Register(string serverName, Uri serverUrl);
@@ -15,7 +15,7 @@ namespace Cruise.Storage
 
 		IServerDetails GetServerByName(string serverName);
 
-		ConsoleColor GetColourForProject(IProject project);
+		ConsoleColor GetColorForProject(IProject project);
 
 		StorageModelMemento ToMemento();
 	}

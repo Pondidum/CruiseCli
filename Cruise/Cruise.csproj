@@ -92,8 +92,8 @@
     <Compile Include="ProjectName.cs" />
     <Compile Include="ProjectNameParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Storage\Colours.cs" />
-    <Compile Include="Storage\DefaultColours.cs" />
+    <Compile Include="Storage\Colors.cs" />
+    <Compile Include="Storage\DefaultColors.cs" />
     <Compile Include="Storage\IServerDetails.cs" />
     <Compile Include="Storage\IStorageModel.cs" />
     <Compile Include="Storage\ISaveStorageModelCommand.cs" />

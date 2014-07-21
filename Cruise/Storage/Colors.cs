@@ -2,7 +2,7 @@
 
 namespace Cruise.Storage
 {
-	public class Colours
+	public class Colors
 	{
 		public ConsoleColor Default { get; set; }
 		public ConsoleColor Error { get; set; }
