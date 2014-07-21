@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cruise.Transport;
 using FubuCore;
+using FubuCore.Util;
 
 namespace Cruise.Storage
 {
@@ -9,9 +11,11 @@ namespace Cruise.Storage
 	{
 		private const StringComparison Ignore = StringComparison.InvariantCultureIgnoreCase;
 
-		private readonly List<IServerDetails> _servers;
-		private readonly Colours _colours;
+		public Colours Colours { get; private set; }
+		public IEnumerable<IServerDetails> Servers { get { return _servers; } }
 
+		private readonly List<IServerDetails> _servers;
+		
 		public StorageModel(StorageModelMemento memento)
 		{
 			_servers = memento
@@ -20,12 +24,7 @@ namespace Cruise.Storage
 				.Cast<IServerDetails>()
 				.ToList();
 
-			_colours = memento.Colours;
-		}
-
-		public  IEnumerable<IServerDetails> Servers
-		{
-			get { return _servers; }
+			Colours = memento.Colours;
 		}
 
 		public bool IsRegistered(string serverName)
@@ -53,12 +52,20 @@ namespace Cruise.Storage
 			return _servers.FirstOrDefault(s => s.Name.EqualsIgnoreCase(serverName));
 		}
 
+		public ConsoleColor GetColourForProject(IProject project)
+		{
+			var map = new Cache<String, ConsoleColor>();
+			map.OnMissing = key => Colours.Default;
+
+			return map[project.Status];
+		}
+
 		public StorageModelMemento ToMemento()
 		{
 			var memento = new StorageModelMemento
 			{
 				Servers = Servers.ToDictionary(server => server.Name, server => server.Url),
-				Colours = _colours,
+				Colours = Colours,
 			};
 
 			return memento;

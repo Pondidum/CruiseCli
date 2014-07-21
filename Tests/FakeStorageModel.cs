@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cruise.Storage;
+using Cruise.Transport;
 using FubuCore;
 
 namespace Tests
@@ -13,6 +14,7 @@ namespace Tests
 		public FakeStorageModel()
 		{
 			_servers = new List<IServerDetails>();
+			Colours = new DefaultColours();
 		}
 
 		public void Insert(IServerDetails server)
@@ -21,6 +23,7 @@ namespace Tests
 		}
 
 		public IEnumerable<IServerDetails> Servers { get { return _servers;  } }
+		public Colours Colours { get; private set; }
 
 		public bool IsRegistered(string serverName)
 		{
@@ -40,6 +43,11 @@ namespace Tests
 		public IServerDetails GetServerByName(string serverName)
 		{
 			return _servers.FirstOrDefault(server => server.Name.EqualsIgnoreCase(serverName));
+		}
+
+		public ConsoleColor GetColourForProject(IProject project)
+		{
+			return Colours.Default;
 		}
 
 		public StorageModelMemento ToMemento()
