@@ -12,6 +12,10 @@ namespace Cruise.Commands.Config
 			Usage("View color value for a category")
 				.Arguments(a => a.Category)
 				.ValidFlags(f => f.ColorFlag);
+
+			Usage("Set a category color")
+				.Arguments(a => a.Category, a => a.Color)
+				.ValidFlags(f => f.ColorFlag);
 		}
 
 		public override bool Execute(ConfigInputModel input)

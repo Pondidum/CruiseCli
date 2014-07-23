@@ -4,5 +4,6 @@ namespace Cruise.Commands.Config
 	{
 		public bool ColorFlag { get; set; }
 		public string Category { get; set; }
+		public string Color { get; set; }
 	}
 }
