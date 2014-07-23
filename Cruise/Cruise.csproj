@@ -52,6 +52,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Config\ConfigCommand.cs" />
+    <Compile Include="Commands\Config\ConfigInputModel.cs" />
     <Compile Include="Commands\Server\ListServerView.cs" />
     <Compile Include="Commands\Server\ServerAlreadyRegisteredView.cs" />
     <Compile Include="Commands\Status\StatusView.cs" />
