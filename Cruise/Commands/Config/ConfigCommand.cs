@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Cruise.Infrastructure;
 using Cruise.Models;
 using Cruise.Storage;
@@ -47,7 +48,15 @@ namespace Cruise.Commands.Config
 				return false;
 			}
 
-			return false;
+			var get = property.GetGetMethod();
+			var value = (ConsoleColor)get.Invoke(_config.Colors, new object[] {});
+
+
+			var model = new ConfigColorListViewModel();
+			model.ColorMap[property.Name] = value.ToString();
+
+			_writer.Write(model);
+			return true;
 
 		}
 	}
