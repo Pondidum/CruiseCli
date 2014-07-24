@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Config\ConfigColorListView.cs" />
     <Compile Include="Commands\Config\ConfigColorListViewModel.cs" />
     <Compile Include="Commands\Config\ConfigCommand.cs" />
     <Compile Include="Commands\Config\ConfigInputModel.cs" />
