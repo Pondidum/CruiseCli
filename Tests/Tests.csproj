@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\CommandUsageTestBase.cs" />
+    <Compile Include="Commands\ConfigCommandTests\ConfigColorCategoryTests.cs" />
     <Compile Include="Commands\ConfigCommandTests\ConfigCommandUsageTests.cs" />
     <Compile Include="Commands\RunCommandTests\RunCommandUsageTests.cs" />
     <Compile Include="Commands\RunCommandTests\RunTests.cs" />
